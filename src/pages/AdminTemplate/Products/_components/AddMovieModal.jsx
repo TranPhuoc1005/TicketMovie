@@ -26,7 +26,7 @@ const AddMovieModal = ({ isOpen, onClose, editData = null, setEditData }) => {
     const [previewImageUrl, setPreviewImageUrl] = useState(null);
     const [selectedImage, setSelectedImage] = useState(null);
 
-    const { register, handleSubmit, control, watch, setValue, reset, formState: { errors, isValid } } = useForm({
+    const { register, handleSubmit, control, watch, setValue, reset, formState: { errors } } = useForm({
         mode: "onChange",
         defaultValues: {
             tenPhim: "",
@@ -63,11 +63,9 @@ const AddMovieModal = ({ isOpen, onClose, editData = null, setEditData }) => {
         }
     }, [watchTenPhim, setValue]);
 
-    const hinhAnh = watch("hinhAnh");
-
     // Add movie
     const queryClient = useQueryClient();
-    const {mutate: addMovie, isLoading } = useMutation({
+    const {mutate: addMovie } = useMutation({
         mutationFn: addMovieApi,
         onSuccess: () => {
             toast.success("Thêm phim thành công");
@@ -78,11 +76,10 @@ const AddMovieModal = ({ isOpen, onClose, editData = null, setEditData }) => {
         onError: (error) => {
             toast.error("Thêm phim thất bại !");
             setIsSubmitting(false);
-            console.log("❌ Lỗi cụ thể:", error);
+            console.log(error);
         }
     })
 
-    // Edit movie có hình
     const { mutate: updateMovie } = useMutation({
         mutationFn: updateMovieApi,
         onSuccess: () => {
@@ -140,11 +137,8 @@ const AddMovieModal = ({ isOpen, onClose, editData = null, setEditData }) => {
                 DangChieu: trangThai === "dangChieu",
                 Hot: Hot === true || Hot === "true"
             };
-            console.log("typeof hinhAnh:", typeof newValues.hinhAnh);
-            console.log("instanceof File:", newValues.hinhAnh instanceof File);
-            console.log("isEdit:", Boolean(editData));
             if(editData) {
-                // Edit có hình mới
+                // Edit movie
                 const formData = new FormData();
                 formData.append("maPhim", editData.maPhim);
                 formData.append("tenPhim", newValues.tenPhim);

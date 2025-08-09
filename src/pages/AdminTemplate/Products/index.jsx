@@ -17,7 +17,7 @@ export default function ProductsPage() {
     const hasClickedPagination = useRef(false);
     const itemsPerPage = 10;
 
-    const { data, isLoading, isError, refetch } = useQuery({
+    const { data, isLoading, refetch } = useQuery({
         queryKey: ["list-movie", currentPage, itemsPerPage],
         queryFn: () => getListMovieApi("GP01", currentPage, itemsPerPage),
         keepPreviousData: true,
