@@ -1,8 +1,7 @@
 import { useQuery } from '@tanstack/react-query';
-import { MapPin, PlusCircle, Edit, Trash2,} from 'lucide-react';
-import { getDetailTheatersApi, getListTheatersApi } from '../../../services/cinema.api';
+import { PlusCircle} from 'lucide-react';
+import { getListTheatersApi } from '../../../services/cinema.api';
 import Theater from './Theater';
-import { useEffect, useState } from 'react';
 
 export default function TheatersPage() {
     const { data: mockTheaters, isLoading } = useQuery({
@@ -10,29 +9,14 @@ export default function TheatersPage() {
         queryFn: () => getListTheatersApi()
     })
 
-    // useEffect(() => {
-    //     const fetchTotalTheaters = async () => {
-    //         if(!mockTheaters || mockTheaters.length === 0) return ;
-    //         let total = 0;
-    //         for(const theater of mockTheaters) {
-    //             const lstCinema = await getDetailTheatersApi(theater.maHeThongRap);
-    //             lstCinema.forEach(cinema => {
-    //                 total += cinema.danhSachRap?.length || 0;
-    //             });
-    //         }
-    //         setTotalTheater(total);
-    //     };
-    //     fetchTotalTheaters();
-    // }, [mockTheaters])
-
     const renderTheaters = () => {
         if (isLoading) return null;
         if(mockTheaters.length > 0) {
             return mockTheaters.map((theater) => {
+             
                 return <Theater 
                     key={theater.maHeThongRap}
                     theater={theater}
-                    // totalTheater={totalTheater}
                 />
             })
         }

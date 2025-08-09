@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import { useEffect, useState } from 'react'
 import { Link, NavLink } from 'react-router-dom'
 import { useSelector, useDispatch } from 'react-redux'
 import { clearUser } from '../../../../store/auth.slice';
@@ -26,7 +26,7 @@ export default function Header() {
         setShowTicketsModal(false);
     };
 
-    React.useEffect(() => {
+    useEffect(() => {
         const handleClickOutside = () => {
             setShowUserDropdown(false);
         }

@@ -9,15 +9,6 @@ export const getCinemaApi = async (movieId) => {
     }
 }
 
-// export const cinemaDetailApi = async (movieId) => {
-//     try {
-//         const response = await api.get(`QuanLyRap/LayThongTinLichChieuPhim?MaPhim=${movieId}`);
-//         return response.data.content;
-//     } catch (error) {
-//         console.log(error)
-//     }
-// }
-
 export const getListTheatersApi = async () => {
     try {
         const response = await api.get('QuanLyRap/LayThongTinHeThongRap');
@@ -33,5 +24,14 @@ export const getDetailTheatersApi = async (theaterId) => {
         return response.data.content;
     } catch (error) {
         console.log(error);
+    }
+}
+
+export const getListScheduleApi = async (theaterId, groupCode) => {
+    try {
+        const response = await api.get(`QuanLyRap/LayThongTinLichChieuHeThongRap?maHeThongRap=${theaterId}&maNhom=${groupCode}`);
+        return response.data.content;
+    } catch (error) {
+        console.log(error)
     }
 }
