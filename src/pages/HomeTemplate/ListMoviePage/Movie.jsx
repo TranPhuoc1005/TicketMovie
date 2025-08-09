@@ -1,8 +1,4 @@
-import React, { useEffect, useState } from 'react'
-import { useDispatch, useSelector } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
-import { fetchCinemaDetail } from '../../../store/cinemaDetail';
-import api from '../../../services/api';
 import { useQuery } from '@tanstack/react-query';
 import { getCinemaApi} from '../../../services/cinema.api';
 

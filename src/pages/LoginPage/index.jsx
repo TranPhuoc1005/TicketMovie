@@ -1,9 +1,9 @@
 import { useMutation } from '@tanstack/react-query';
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import { useDispatch } from 'react-redux';
 import { Navigate, useNavigate } from 'react-router-dom'
 import { loginApi } from '../../services/auth.api.js';
-import { setUser } from '../../store/auth.slice.js';
+import { clearUser, setUser } from '../../store/auth.slice.js';
 import { toast } from 'react-toastify';
 import Alert from '../../components/Alert/Alert.jsx';
 
@@ -34,6 +34,13 @@ export default function LoginPage() {
         }
     })
 
+    useEffect(() => {
+        const user = JSON.parse(localStorage.getItem('user'));
+        if (!user) {
+            dispatch(clearUser());
+        }
+    }, [dispatch]);
+
     const handleOnChange = (event) => {
         setValues({
             ...values,
@@ -49,10 +56,10 @@ export default function LoginPage() {
 
     const user = JSON.parse(localStorage.getItem('user'));
     if(user && user.maLoaiNguoiDung === 'QuanTri') {
-        return <Navigate to='/admin/' />
+        return <Navigate to='/admin/' replace  />
     }
     if(user && user.maLoaiNguoiDung !== 'QuanTri') {
-        return <Navigate to='/' />
+        return <Navigate to='/' replace  />
     }
 
     return (
@@ -136,7 +143,6 @@ export default function LoginPage() {
                         </a>
                     </div>
                     <button 
-                        type="submit"
                         className="w-full bg-gradient-to-r from-purple-600 to-pink-600 text-white font-semibold py-3 px-6 rounded-xl hover:from-purple-700 hover:to-pink-700 focus:outline-none focus:ring-2 focus:ring-purple-500 focus:ring-offset-2 focus:ring-offset-transparent transform hover:scale-105 transition-all duration-300 shadow-lg hover:shadow-xl cursor-pointer"
                     >
                         <span className="flex items-center justify-center">
@@ -147,14 +153,15 @@ export default function LoginPage() {
                         </span>
                     </button>
                     <button 
-                        type="submit"
+                        type="button"
+                        onClick={() => navigate('/')}
                         className="w-full bg-gradient-to-r from-purple-600 to-pink-600 text-white font-semibold py-3 px-6 rounded-xl hover:from-purple-700 hover:to-pink-700 focus:outline-none focus:ring-2 focus:ring-purple-500 focus:ring-offset-2 focus:ring-offset-transparent transform hover:scale-105 transition-all duration-300 shadow-lg hover:shadow-xl cursor-pointer"
                     >
                         <span className="flex items-center justify-center">
                             <svg id="loginIcon" className="w-5 h-5 mr-2" fill="currentColor" viewBox="0 0 20 20">
                                 <path fillRule="evenodd" d="M3 3a1 1 0 011 1v12a1 1 0 11-2 0V4a1 1 0 011-1zm7.707 3.293a1 1 0 010 1.414L9.414 9H17a1 1 0 110 2H9.414l1.293 1.293a1 1 0 01-1.414 1.414l-3-3a1 1 0 010-1.414l3-3a1 1 0 011.414 0z" clipRule="evenodd"/>
                             </svg>
-                            <span id="loginText" className="mr-5">Quay lại</span>
+                            <span id="logoutText" className="mr-5">Quay lại</span>
                         </span>
                     </button>
                 </form>
