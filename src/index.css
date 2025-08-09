@@ -45,3 +45,127 @@
 ::-webkit-scrollbar-thumb:hover {
   background: linear-gradient(180deg, rgba(173, 173, 173, 0.1) 0%, rgb(104, 104, 104) 100%);
 }
+
+
+
+/* components/Alert/Alert.css */
+
+/* Custom toast styles */
+.toast-success {
+    background: linear-gradient(135deg, #10b981 0%, #059669 100%);
+    color: white;
+    border-radius: 12px;
+    box-shadow: 0 10px 25px rgba(16, 185, 129, 0.3);
+}
+
+.toast-error {
+    background: linear-gradient(135deg, #ef4444 0%, #dc2626 100%);
+    color: white;
+    border-radius: 12px;
+    box-shadow: 0 10px 25px rgba(239, 68, 68, 0.3);
+}
+
+.toast-warning {
+    background: linear-gradient(135deg, #f59e0b 0%, #d97706 100%);
+    color: white;
+    border-radius: 12px;
+    box-shadow: 0 10px 25px rgba(245, 158, 11, 0.3);
+}
+
+.toast-info {
+    background: linear-gradient(135deg, #3b82f6 0%, #2563eb 100%);
+    color: white;
+    border-radius: 12px;
+    box-shadow: 0 10px 25px rgba(59, 130, 246, 0.3);
+}
+
+.toast-loading {
+    background: linear-gradient(135deg, #6b7280 0%, #4b5563 100%);
+    color: white;
+    border-radius: 12px;
+    box-shadow: 0 10px 25px rgba(107, 114, 128, 0.3);
+}
+
+/* Custom progress bar */
+.Toastify__progress-bar--success {
+    background: rgba(255, 255, 255, 0.8);
+}
+
+.Toastify__progress-bar--error {
+    background: rgba(255, 255, 255, 0.8);
+}
+
+.Toastify__progress-bar--warning {
+    background: rgba(255, 255, 255, 0.8);
+}
+
+.Toastify__progress-bar--info {
+    background: rgba(255, 255, 255, 0.8);
+}
+
+/* Toast container customization */
+.Toastify__toast-container {
+    width: auto;
+    min-width: 300px;
+    max-width: 500px;
+}
+
+.Toastify__toast {
+    margin-bottom: 10px;
+    border-radius: 12px;
+    padding: 16px;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    font-size: 14px;
+    line-height: 1.5;
+}
+
+.Toastify__toast-body {
+    padding: 0;
+    margin: 0;
+}
+
+.Toastify__close-button {
+    color: rgba(255, 255, 255, 0.8);
+    opacity: 1;
+}
+
+.Toastify__close-button:hover {
+    color: white;
+}
+
+/* Animation enhancements */
+@keyframes slideInRight {
+    from {
+        transform: translate3d(110%, 0, 0);
+        opacity: 0;
+    }
+    to {
+        transform: translate3d(0, 0, 0);
+        opacity: 1;
+    }
+}
+
+@keyframes slideOutRight {
+    from {
+        transform: translate3d(0, 0, 0);
+        opacity: 1;
+    }
+    to {
+        transform: translate3d(110%, 0, 0);
+        opacity: 0;
+    }
+}
+
+.Toastify__slide-enter--top-right,
+.Toastify__slide-enter--bottom-right {
+    animation: slideInRight 0.3s ease-out;
+}
+
+.Toastify__slide-exit--top-right,
+.Toastify__slide-exit--bottom-right {
+    animation: slideOutRight 0.3s ease-in;
+}
+
+button {
+    cursor: pointer;
+}

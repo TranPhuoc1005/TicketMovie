@@ -4,10 +4,12 @@ import { Outlet } from 'react-router-dom'
 
 export default function HomeTemplate() {
   return (
-    <>
-        <Header />
-        <Outlet />
-        <Footer />
-    </>
+    <div className='wrapper'>
+      <div className='bg-gradient-to-br from-slate-900 via-purple-900 to-slate-900 min-h-screen'>
+          <Header />
+          <Outlet />
+          <Footer />
+      </div>
+    </div>
   )
 }

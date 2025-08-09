@@ -3,14 +3,21 @@ import { useDispatch, useSelector } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
 import { fetchCinemaDetail } from '../../../store/cinemaDetail';
 import api from '../../../services/api';
+import { useQuery } from '@tanstack/react-query';
+import { getCinemaApi} from '../../../services/cinema.api';
 
 export default function Movie(props) {
     const { movie, setIsModalOpen, setSelectedMovie } = props;
-    const [ cinemaDetail, setCinemaDetail ] = useState(null);
     const navigate = useNavigate();
     const handleViewDetail = () => {
         navigate(`movie-details/${movie.maPhim}`);
     }
+    const { data: cinemaDetail, isLoading, isError } = useQuery({
+        queryKey: ['item-movie', movie.maPhim],
+        queryFn: () => {
+            return getCinemaApi(movie.maPhim);
+        }
+    })
     const handleBookTicket = () => {
         setSelectedMovie({
             ...movie,
@@ -18,19 +25,6 @@ export default function Movie(props) {
         });
         setIsModalOpen(true);
     }
-    useEffect(() => {
-        const getMovieDetail = async() => {
-            try {
-                const resSchedule = await api.get(`QuanLyRap/LayThongTinLichChieuPhim?MaPhim=${movie.maPhim}`);
-                setCinemaDetail(resSchedule.data.content);
-            }catch(error) {
-                console.log(error);
-            }
-        }
-        getMovieDetail();
-    }, [movie.maPhim]);
-
-
     const priceTicket = cinemaDetail?.heThongRapChieu?.[0]?.cumRapChieu?.[0]?.lichChieuPhim?.[0]?.giaVe;
     const durationFilm = cinemaDetail?.heThongRapChieu?.[0]?.cumRapChieu?.[0]?.lichChieuPhim?.[0]?.thoiLuong;
     return (
@@ -69,7 +63,7 @@ export default function Movie(props) {
                 </div>
                 <div className="flex items-center justify-between mt-auto">
                     <div className="text-2xl font-bold text-green-400">
-                        {priceTicket ? `${priceTicket.toLocaleString()}đ` : 'Loading...' }
+                        {priceTicket ? `${priceTicket.toLocaleString()}đ` : 'Chưa có' }
                     </div>
                     <button onClick={handleBookTicket} className={` ${movie.dangChieu ? 'bg-gradient-to-r from-purple-600 to-pink-600 hover:from-purple-700 hover:to-pink-700 hover:scale-105 hover:shadow-lg cursor-pointer ' : 'bg-stone-600 opacity-70 cursor-not-allowed' } text-white px-6 py-2 rounded-xl font-semibold transition-all duration-300  flex items-center space-x-2 `} disabled={!movie.dangChieu ? true : false}>
                         <svg className="w-4 h-4" fill="currentColor" viewBox="0 0 24 24">

@@ -1,23 +1,26 @@
-import React, { useEffect } from 'react'
-import { useDispatch, useSelector } from 'react-redux';
-import { fetchListMovie } from './slice';
 import Movie from './Movie';
+import { useQuery } from '@tanstack/react-query';
+import { getListMovieApi } from '../../../services/movie.api';
+import { useState } from 'react';
+import Pagination from '../../../components/Pagination';
 
 export default function ListMoviePage(props) {
     const {setIsModalOpen, setSelectedMovie} = props;
-    const {data, loading} = useSelector((state) => state.listMovieSlice);
+    const [currentPage, setCurrentPage] = useState(1);
+    const itemsPerPage = 10;
+    const { data, isLoading, isError, refetch } = useQuery({
+        queryKey: ['list-movie', currentPage, itemsPerPage],
+        queryFn: () => {
+            return getListMovieApi('GP01', currentPage , itemsPerPage);
+        }
+    });
+    if(isLoading) return <p>Loading...</p>;
 
-    const dispatch = useDispatch();
-    useEffect(() => {
-        dispatch(fetchListMovie());
-    }, []);
-
-
-    if(loading) return <p>Loading...</p>;
+    if(isError) return <div><p>Đã có lỗi xày ra vui lòng thử lại !</p><button onClick={handleRefetch()} className="p3 text-sm rounded-sm bg-blue-600 text-white">Thử lại</button></div>
 
     const renderMovies = () => {
-        if(data) {
-            return data.map((movie) => {
+        if(data.items) {
+            return data.items.map((movie) => {
                 return <Movie 
                     key={movie.maPhim} 
                     movie={movie} 
@@ -26,6 +29,19 @@ export default function ListMoviePage(props) {
                     setSelectedMovie={setSelectedMovie}
                 />
             })
+        }
+    }
+
+    const totalPages = data?.totalPages || Math.ceil((data?.totalCount || 0) / itemsPerPage);
+
+    const handlePageChange = (page) => {
+        setCurrentPage(page);
+        const moviesSection = document.getElementById('movies');
+        if (moviesSection) {
+            moviesSection.scrollIntoView({ 
+                behavior: 'smooth', 
+                block: 'start' 
+            });
         }
     }
     return (
@@ -43,9 +59,13 @@ export default function ListMoviePage(props) {
                     {renderMovies()}
                 </div>
                 <div className="text-center mt-12">
-                    <button className="glass-effect hover:bg-purple-600/20 text-white px-8 py-3 rounded-xl font-semibold transition-all hover:scale-105 border border-purple-500/50 cursor-pointer">
-                        Xem thêm phim
-                    </button>
+                    <div className="pagination">
+                        <Pagination 
+                            currentPage={currentPage}
+                            totalPages={totalPages}
+                            onPageChange={handlePageChange}
+                        />
+                    </div>
                 </div>
             </div>
         </section>

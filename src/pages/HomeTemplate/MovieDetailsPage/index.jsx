@@ -131,7 +131,7 @@ export default function MovieDetailsPage() {
                                     <div className="flex items-center justify-between">
                                         <div>
                                             <p className="text-slate-400 text-sm uppercase tracking-wider">Giá vé</p>
-                                            <p className="text-3xl font-bold text-green-400">{priceTicket ? `${priceTicket.toLocaleString()}đ` : 'Loading...' }</p>
+                                            <p className="text-3xl font-bold text-green-400">{priceTicket ? `${priceTicket.toLocaleString()}đ` : 'Chưa có' }</p>
                                         </div>
                                         <div className="text-right">
                                             <p className="text-slate-400 text-sm uppercase tracking-wider">Trạng thái</p>

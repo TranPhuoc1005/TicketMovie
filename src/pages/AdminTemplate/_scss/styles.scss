@@ -1,0 +1,165 @@
+@forward '../_components/Sidebar/sidebar.scss';
+@forward '../_components/Header/header.scss';
+:root {
+  --content-width: 1230px;
+  --font-arial: Arial, Helvetica, sans-serif;
+  --font-roborto: "Roboto Condensed", sans-serif;
+  --main-cl: #fbe74f;
+  --sec-cl: #5d5d5d;
+  --b-cl: #000;
+  --w-cl: #fff;
+  --lh: 1.8em;
+  --font-family: "Roboto Condensed", sans-serif;
+  --body-color: #333333;
+  --heightHeader: 60px;
+  --width-sidebar: 264px;
+}
+::-webkit-scrollbar {
+  height: 6px;
+}
+
+::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+::-webkit-scrollbar-thumb {
+  background-color: #ccc;
+  border-radius: 4px;
+}
+
+.wrapper {
+    &__content {
+        display: flex;
+        &.closeSidebar {
+            --width-sidebar: 75px;
+            .sidebar__menu li .txt {
+                opacity: 0;
+            }
+            .sidebar__logo {
+                a {
+                    display: none;
+                }
+            }
+        }
+        .wrapper__main {
+            width: calc(100% - var(--width-sidebar));
+            margin-left: auto;
+            transition: ease-in-out all 0.5s;
+            position: relative;
+            z-index: 1;
+            &::before {
+                content: "";
+                position: absolute;
+                width: 100%;
+                height: 100vh;
+                background-color: #000;
+                opacity: 0;
+                z-index: 50;
+                transition: ease-in-out all 0.5s;
+                z-index: 0;
+                pointer-events: none;
+            }
+        }
+    }
+}
+
+.react-datepicker__input-container input {
+  width: 100%;
+}
+
+@media screen and (hover: hover) {
+    .sidebar_active {
+        --width-sidebar: 80px;
+    }
+    .sidebar_active .sidebar__menu li a:hover .txt {
+        color: var(--main-cl);
+    }
+}
+
+@media (width <= 1160px) {
+    .wrapper__content {
+        &.closeSidebar {
+            --width-sidebar: 264px !important;
+            .wrapper__main {
+                position: relative;
+                z-index: 1;
+            }
+            .sidebar__menu li .txt {
+                opacity: 1;
+            }
+            .sidebar__logo a {
+                display: block;
+            }
+        }
+        &.openSidebar {
+            .sidebar {
+                transform: translateX(0);
+            }
+            .wrapper__main {
+                &::before {
+                    opacity: 0.8;
+                }
+            }
+        }
+    }
+
+    .hamburger-alt {
+        width: 40px;
+        height: 40px;
+    }
+    .sidebar {
+        overflow: hidden;
+        transform: translateX(calc(var(--width-sidebar) * -1));
+        .sidebar__close {
+            display: block;
+        }
+    }
+    .sidebar.active {
+        transform: translateX(0);
+    }
+    .sidebar.active .sidebar__menu .txt {
+        color: inherit;
+    }
+    .wrapper__content .wrapper__main {
+        width: 100%;
+    }
+    .sidebar_active .wrapper__main {
+        width: 100%;
+    }
+    .sidebar_active {
+        overflow: hidden;
+    }
+    .sidebar_active header {
+        width: calc(100% - 264px - 3.75rem);
+        z-index: 61;
+    }
+
+    .hamburger-alt span {
+        transform: unset !important;
+        opacity: 1 !important;
+    }
+    .hamburger-alt.close span:nth-child(1) {
+        transform: rotate(45deg) translate(5px, 5px);
+    }
+
+    .hamburger-alt.close span:nth-child(2) {
+        opacity: 0;
+    }
+
+    .hamburger-alt.close span:nth-child(3) {
+        transform: rotate(-45deg) translate(7px, -6px);
+    }
+
+}
+
+@media (width <= 769px) {
+    .wrapper__main {
+        .content {
+            margin: 20px !important;
+            padding: 10px;
+            > div {
+                padding: 10px;
+            }
+        }
+    }
+}

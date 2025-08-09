@@ -1,38 +1,62 @@
-import React, { useEffect, useState } from 'react'
+import { useEffect, useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux';
-import { fetchListCinema } from '../../../../store/cinema.js';
-import { fetchTicketSchedule } from '../../../../store/ticket.js';
-import { loginUser } from '../../../../store/auth.js';
+import { useMutation, useQuery } from '@tanstack/react-query';
+import { loginApi } from '../../../../services/auth.api.js';
+import { clearUser, setUser } from '../../../../store/auth.slice.js';
+import { getTicketApi } from '../../../../services/ticket.api.js';
 
 
 export default function BookingModal(props) {
-    const { isOpen, onClose, cinemaDetail} = props;
     const [selectedComplex, setSelectedComplex] = useState(null);
     const [selectedSchedule, setSelectedSchedule] = useState(null);
     const [selectedDay, setSelectedDay] = useState(null);
     const [selectedTime, setSelectedTime] = useState(null);
     const [currentStep, setCurrentStep] = useState(1);
     const [selectedSeats, setSelectedSeats] = useState([]);
-    const {user, loading: authLoading} = useSelector((state) => state.auth);
-    const [loginForm, setLoginForm] = useState({
+    const [values, setValues] = useState({
         taiKhoan: '',
         matKhau: ''
     })
+    
+    const { isOpen, onClose, cinemaDetail} = props;
     const dispatch = useDispatch();
 
-    const { ticketSchedule, loading } = useSelector((state) => state.ticketSchedule);
-
     useEffect(() => {
-        dispatch(fetchListCinema());
-        if (selectedSchedule) {
-            dispatch(fetchTicketSchedule(selectedSchedule.maLichChieu));
+        if(isOpen) {
+            document.body.style.overflow = 'hidden';
+            return () => {
+                document.body.style.overflow = '';
+            }
         }
-    }, [selectedSchedule, dispatch]);
+    },[isOpen]);
 
+    const user = useSelector((state) => state.authSlice.user);
+    const {mutate:handleLogin, isPending} = useMutation({
+        mutationFn:(valuesHandleLogin) => loginApi(valuesHandleLogin),
+        onSuccess: (user) => {
+            if(!user) return;
+            localStorage.setItem('user', JSON.stringify(user));
+            dispatch(setUser(user));
+        }
+    });
 
-    const daysShort = ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'];
-    const monthsShort = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'];
+    const { data: ticketRoom, isLoading: isRoomLoading, isError: isRoomError } = useQuery({
+        queryKey: ['ticket-room', selectedSchedule?.maLichChieu],
+        queryFn: () => getTicketApi(selectedSchedule.maLichChieu),
+        enabled: !!selectedSchedule?.maLichChieu,
+    });
 
+    const handleLogout = () => {
+        localStorage.clear();
+        dispatch(clearUser());
+    }
+
+    const handleCloseModal = () => {
+        document.body.style.overflow = '';
+        onClose();
+    }
+
+    //============================== RENDER DANH SÁCH HỆ THỐNG RẠP CHIẾU
     const renderCinemas = () => {
         if (!cinemaDetail?.heThongRapChieu) return null;
         return cinemaDetail.heThongRapChieu.map((cinema) => (
@@ -67,7 +91,13 @@ export default function BookingModal(props) {
             </div>
         ));
     };
+    //============================== END RENDER DANH SÁCH HỆ THỐNG RẠP CHIẾU
+    
 
+    //============================== RENDER DANH DANH LỊCH CHIẾU PHIM
+    const daysShort = ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'];
+    const monthsShort = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'];
+    {/* CHỌN NGÀY*/}
     const renderShowtime = () => {
         if (!selectedComplex) return <p className="text-slate-400">Chọn một rạp để xem lịch chiếu.</p>;
         const uniqueDays = Array.from(
@@ -115,35 +145,36 @@ export default function BookingModal(props) {
             </div>
         );
     };
-
+    {/* CHỌN GIỜ */}
     const renderTimeSlots = () => {
         if (!selectedComplex || !selectedDay) return null;
-
         const showtimes = selectedComplex.lichChieuPhim.filter((item) =>
             item.ngayChieuGioChieu.startsWith(selectedDay)
         );
-
         return showtimes.map((item) => {
             const d = new Date(item.ngayChieuGioChieu);
             const hhmm = `${d.getHours().toString().padStart(2, "0")}:${d.getMinutes().toString().padStart(2, "0")}`;
             const isActive = selectedSchedule?.maLichChieu === item.maLichChieu;
             return (
-            <button
-                key={item.maLichChieu}
-                onClick={() => {
-                    const d = new Date(item.ngayChieuGioChieu);
-                    const hhmm = `${d.getHours().toString().padStart(2,"0")}:${d.getMinutes().toString().padStart(2,"0")}`;
-                    setSelectedTime(hhmm);
-                    setSelectedSchedule(item);
-                }}
-                className={`py-3 px-4 rounded-xl font-semibold transition-all cursor-pointer ${isActive ? "bg-gradient-to-r from-purple-600 to-pink-600 text-white hover:scale-105" : "glass-effect text-slate-300 hover:text-white hover:bg-gradient-to-r hover:from-purple-600 hover:to-pink-600 hover:scale-105"}`}
-            >
-                {hhmm}
-            </button>
+                <button
+                    key={item.maLichChieu}
+                    onClick={() => {
+                        const d = new Date(item.ngayChieuGioChieu);
+                        const hhmm = `${d.getHours().toString().padStart(2,"0")}:${d.getMinutes().toString().padStart(2,"0")}`;
+                        setSelectedTime(hhmm);
+                        setSelectedSchedule(item);
+                    }}
+                    className={`py-3 px-4 rounded-xl font-semibold transition-all cursor-pointer ${isActive ? "bg-gradient-to-r from-purple-600 to-pink-600 text-white hover:scale-105" : "glass-effect text-slate-300 hover:text-white hover:bg-gradient-to-r hover:from-purple-600 hover:to-pink-600 hover:scale-105"}`}
+                >
+                    {hhmm}
+                </button>
             );
         });
     };
+    //============================== END RENDER DANH DANH LỊCH CHIẾU PHIM
+
     
+    //============================== RENDER DANH SÁCH GHÊ
     const listSeats = (seats, size = 20) => {
         const result = [];
         for (let i = 0; i < seats.length; i += size) {
@@ -151,11 +182,8 @@ export default function BookingModal(props) {
         }
         return result;
     };
-
-    const totalPrice = selectedSeats.length * (selectedSchedule?.giaVe || 0);
-
     const renderSeats = () => {
-    if (!ticketSchedule?.danhSachGhe) return null;
+    if (!ticketRoom ?.danhSachGhe) return null;
 
     const toggleSeat = (seat) => {
         setSelectedSeats((prev) => {
@@ -163,9 +191,7 @@ export default function BookingModal(props) {
             return isSelected ? prev.filter((s) => s.maGhe !== seat.maGhe) : [...prev, seat];
         });
     }
-
-    const rows = listSeats(ticketSchedule.danhSachGhe, 20);
-
+    const rows = listSeats(ticketRoom .danhSachGhe, 20);
     return rows.map((row, rowIndex) => (
         <div key={rowIndex} className="flex space-x-2 mb-2">
             {row.map((seat) => {
@@ -183,15 +209,17 @@ export default function BookingModal(props) {
             </div>
         ));
     };
+    //============================== END RENDER DANH SÁCH GHÊ
 
-    const handleLogin = (event) => {
+    const totalPrice = selectedSeats.length * (selectedSchedule?.giaVe || 0);
+
+    const handleSubmit = (event) => {
         event.preventDefault();
-        dispatch(loginUser(loginForm));
+        handleLogin(values);
     }
-
     if (!isOpen && !props.children) return null;
     return (
-        <section id="bookingModal" className="fixed inset-0 bg-black/60 backdrop-blur-sm z-50 items-center justify-center p-4">
+        <section id="bookingModal" className="fixed flex inset-0 bg-black/60 backdrop-blur-sm z-50 items-center justify-center p-4">
             <div className="mx-auto glass-effect rounded-3xl w-full max-w-5xl max-h-[90vh] overflow-y-auto border border-slate-700/50">
                 <div className="p-8">
                     <div className="flex items-center justify-between mb-8">
@@ -200,7 +228,7 @@ export default function BookingModal(props) {
                                 {cinemaDetail?.tenPhim}
                             </h2>
                         </div>
-                        <button onClick={onClose} className="text-slate-400 hover:text-white text-3xl font-bold w-12 h-12 rounded-full hover:bg-slate-700/50 transition-all cursor-pointer pb-[5px] pl-[2px]">
+                        <button onClick={handleCloseModal} className="text-slate-400 hover:text-white text-3xl font-bold w-12 h-12 rounded-full hover:bg-slate-700/50 transition-all cursor-pointer pb-[5px] pl-[2px]">
                             ×
                         </button>
                     </div>
@@ -266,7 +294,6 @@ export default function BookingModal(props) {
                         <button 
                             onClick={() => {
                                 if (!selectedSchedule) return;
-                                dispatch(fetchTicketSchedule(selectedSchedule.maLichChieu));
                                 setCurrentStep(2);
                             }}
                             disabled={!selectedSchedule}
@@ -324,7 +351,8 @@ export default function BookingModal(props) {
                             </button>
                             <button 
                                 onClick={() => setCurrentStep(3)}
-                                className="flex-1 bg-gradient-to-r from-purple-600 to-pink-600 hover:from-purple-700 hover:to-pink-700 text-white py-4 rounded-xl font-semibold transition-all hover:scale-[1.02] cursor-pointer"
+                                className={`flex-1 ${selectedSeats.length !== 0 ? 'bg-gradient-to-r from-purple-600 to-pink-600 hover:from-purple-700 hover:to-pink-700 text-white hover:scale-[1.02] hover:shadow-lg cursor-pointer' : 'glass-effect text-slate-500 cursor-not-allowed border border-slate-700/50'} py-4 rounded-xl font-semibold transition-all`}
+                                disabled={selectedSeats.length === 0} 
                             >
                                 Nhập thông tin
                             </button>
@@ -339,38 +367,46 @@ export default function BookingModal(props) {
                                     </svg>
                                     Thông tin khách hàng
                                 </h3>
-                                
                                 {!user ? (
-                                    <form onSubmit={handleLogin} className="space-y-4">
+                                    <form onSubmit={handleSubmit} className="space-y-4">
                                         <div>
                                         <label className="text-white">Tài khoản</label>
                                         <input
-                                            className="w-full p-2 bg-slate-800 border border-slate-600 rounded"
-                                            value={loginForm.taiKhoan}
-                                            onChange={e => setLoginForm({ ...loginForm, taiKhoan: e.target.value })}
+                                            className="w-full p-2 bg-slate-800 border border-slate-600 rounded text-white"
+                                            value={values.taiKhoan}
+                                            name='taiKhoan'
+                                            onChange={e => setValues({ ...values, taiKhoan: e.target.value })}
                                         />
                                         </div>
                                         <div>
                                         <label className="text-white">Mật khẩu</label>
                                         <input
                                             type="password"
-                                            className="w-full p-2 bg-slate-800 border border-slate-600 rounded"
-                                            value={loginForm.matKhau}
-                                            onChange={e => setLoginForm({ ...loginForm, matKhau: e.target.value })}
+                                            className="w-full p-2 bg-slate-800 border border-slate-600 rounded text-white"
+                                            value={values.matKhau}
+                                            name='matKhau'
+                                            onChange={e => setValues({ ...values, matKhau: e.target.value })}
                                         />
                                         </div>
                                         <button
-                                        type="submit"
-                                        className="w-full bg-gradient-to-r from-purple-600 to-pink-600 text-white py-2 rounded"
+                                            type="submit"
+                                            className="w-full bg-gradient-to-r from-purple-600 to-pink-600 text-white py-2 rounded"
                                         >
-                                        {authLoading ? 'Đang đăng nhập...' : 'Đăng nhập'}
+                                            {isPending ? 'Đang đăng nhập...' : 'Đăng nhập'}
                                         </button>
                                     </form>
                                     ) : (
                                     <div className="text-white space-y-2">
                                         <p><strong>Tài khoản:</strong> {user.taiKhoan}</p>
                                         <p><strong>Họ tên:</strong> {user.hoTen}</p>
-                                        <p><strong>Email:</strong> {user.email}</p>
+                                        <p className='mb-5'><strong>Email:</strong> {user.email}</p>
+                                        <button
+                                            onClick={handleLogout}
+                                            type="submit"
+                                            className="w-full bg-gradient-to-r from-purple-600 to-pink-600 text-white py-2 rounded cursor-pointer"
+                                        >
+                                            Đăng xuất
+                                        </button>
                                     </div>
                                 )}
                             </div>
