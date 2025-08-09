@@ -9,9 +9,13 @@ import { BrowserRouter } from "react-router-dom";
 const queryClient = new QueryClient({
     defaultOptions: {
         queries: {
+            staleTime: 30 * 60 * 1000, // Data được coi là fresh trong 30p
+            gcTime: 60 * 60 * 1000, // Giữ data trong memory 1 tiếng ( dù ko dùng )
+            refetchOnReconnect: true, // Chỉ refetch khi mất kết nối internet
             refetchOnWindowFocus: false,
             refetchOnMount: false,
-            retry: 3,
+            retry: 2,
+            structuralSharing: true, // Tối ưu re-render khi data không thay đổi
         },
     },
 });

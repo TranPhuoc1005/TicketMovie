@@ -27,7 +27,7 @@ export const getDetailTheatersApi = async (theaterId) => {
     }
 }
 
-export const getListScheduleApi = async (theaterId, groupCode) => {
+export const getListScheduleTheaterApi = async (theaterId, groupCode) => {
     try {
         const response = await api.get(`QuanLyRap/LayThongTinLichChieuHeThongRap?maHeThongRap=${theaterId}&maNhom=${groupCode}`);
         return response.data.content;
