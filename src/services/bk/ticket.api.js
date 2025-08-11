@@ -9,9 +9,9 @@ export const getTicketApi = async (scheduleId) => {
     }
 }
 
-export const getScheduleTicket = async (systemCinemaId,groupCode) => {
+export const getScheduleTicket = async (groupCode) => {
     try {
-        const response = await api.get(`QuanLyRap/LayThongTinLichChieuHeThongRap?maHeThongRap=${systemCinemaId}&maNhom=${groupCode}`);
+        const response = await api.get(`QuanLyRap/LayThongTinLichChieuHeThongRap?maHeThongRap=BHDStar&maNhom=${groupCode}`);
         return response.data.content;
     } catch (error) {
         console.log(error);

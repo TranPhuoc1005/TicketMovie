@@ -17,30 +17,30 @@ export default function BookingModal(props) {
         taiKhoan: '',
         matKhau: ''
     })
-    
-    const { isOpen, onClose, cinemaDetail} = props;
+
+    const { isOpen, onClose, cinemaDetail } = props;
     const dispatch = useDispatch();
 
     useEffect(() => {
-        if(isOpen) {
+        if (isOpen) {
             document.body.style.overflow = 'hidden';
             return () => {
                 document.body.style.overflow = '';
             }
         }
-    },[isOpen]);
+    }, [isOpen]);
 
     const user = useSelector((state) => state.authSlice.user);
-    const {mutate:handleLogin, isPending} = useMutation({
-        mutationFn:(valuesHandleLogin) => loginApi(valuesHandleLogin),
+    const { mutate: handleLogin, isPending } = useMutation({
+        mutationFn: (valuesHandleLogin) => loginApi(valuesHandleLogin),
         onSuccess: (user) => {
-            if(!user) return;
+            if (!user) return;
             localStorage.setItem('user', JSON.stringify(user));
             dispatch(setUser(user));
         }
     });
 
-    const { data: ticketRoom, isLoading: isRoomLoading, isError: isRoomError } = useQuery({
+    const { data: ticketRoom } = useQuery({
         queryKey: ['ticket-room', selectedSchedule?.maLichChieu],
         queryFn: () => getTicketApi(selectedSchedule.maLichChieu),
         enabled: !!selectedSchedule?.maLichChieu,
@@ -67,22 +67,20 @@ export default function BookingModal(props) {
                         <div
                             key={complex.maCumRap}
                             onClick={() => setSelectedComplex(complex)}
-                            className={`glass-effect rounded-xl p-4 border cursor-pointer transition-all hover-lift ${
-                                isActive ? "border-purple-500 bg-purple-600/20" : "border-purple-500/50"
-                            }`}
+                            className={`glass-effect rounded-xl p-4 border cursor-pointer transition-all hover-lift ${isActive ? "border-purple-500 bg-purple-600/20" : "border-purple-500/50"
+                                }`}
                         >
                             <div className="flex items-center justify-between">
                                 <div className="flex items-center gap-4">
-                                    <p><img src={cinema.logo} className='w-[40px]' alt={cinema.tenHeThongRap}/></p>
+                                    <p><img src={cinema.logo} className='w-[40px]' alt={cinema.tenHeThongRap} /></p>
                                     <div>
                                         <h4 className="text-white font-semibold">{complex.tenCumRap}</h4>
                                         <p className="text-slate-400 text-sm">{complex.diaChi}</p>
                                     </div>
                                 </div>
                                 <div
-                                    className={`w-5 h-5 border-2 rounded-full transition-colors ${
-                                        isActive ? "bg-purple-500 border-purple-500" : "border-purple-500"
-                                    }`}
+                                    className={`w-5 h-5 border-2 rounded-full transition-colors ${isActive ? "bg-purple-500 border-purple-500" : "border-purple-500"
+                                        }`}
                                 ></div>
                             </div>
                         </div>
@@ -92,12 +90,12 @@ export default function BookingModal(props) {
         ));
     };
     //============================== END RENDER DANH SÁCH HỆ THỐNG RẠP CHIẾU
-    
+
 
     //============================== RENDER DANH DANH LỊCH CHIẾU PHIM
     const daysShort = ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'];
     const monthsShort = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'];
-    {/* CHỌN NGÀY*/}
+    {/* CHỌN NGÀY*/ }
     const renderShowtime = () => {
         if (!selectedComplex) return <p className="text-slate-400">Chọn một rạp để xem lịch chiếu.</p>;
         const uniqueDays = Array.from(
@@ -130,11 +128,10 @@ export default function BookingModal(props) {
                                     setSelectedSchedule(null);
                                 }
                             }}
-                            className={`flex-shrink-0 p-3 rounded-xl text-center cursor-pointer min-w-[80px] transition-all border ${
-                                isActive
+                            className={`flex-shrink-0 p-3 rounded-xl text-center cursor-pointer min-w-[80px] transition-all border ${isActive
                                     ? "bg-gradient-to-r from-purple-600 to-pink-600 text-white border-none"
                                     : "glass-effect text-white border-purple-500/50 hover:from-purple-600 hover:to-pink-600 hover:bg-gradient-to-r hover:text-white hover:border-none"
-                            }`}
+                                }`}
                         >
                             <div className="text-sm font-medium">{day}</div>
                             <div className="text-lg font-bold">{date}</div>
@@ -145,7 +142,7 @@ export default function BookingModal(props) {
             </div>
         );
     };
-    {/* CHỌN GIỜ */}
+    {/* CHỌN GIỜ */ }
     const renderTimeSlots = () => {
         if (!selectedComplex || !selectedDay) return null;
         const showtimes = selectedComplex.lichChieuPhim.filter((item) =>
@@ -160,7 +157,7 @@ export default function BookingModal(props) {
                     key={item.maLichChieu}
                     onClick={() => {
                         const d = new Date(item.ngayChieuGioChieu);
-                        const hhmm = `${d.getHours().toString().padStart(2,"0")}:${d.getMinutes().toString().padStart(2,"0")}`;
+                        const hhmm = `${d.getHours().toString().padStart(2, "0")}:${d.getMinutes().toString().padStart(2, "0")}`;
                         setSelectedTime(hhmm);
                         setSelectedSchedule(item);
                     }}
@@ -173,7 +170,7 @@ export default function BookingModal(props) {
     };
     //============================== END RENDER DANH DANH LỊCH CHIẾU PHIM
 
-    
+
     //============================== RENDER DANH SÁCH GHÊ
     const listSeats = (seats, size = 20) => {
         const result = [];
@@ -183,29 +180,29 @@ export default function BookingModal(props) {
         return result;
     };
     const renderSeats = () => {
-    if (!ticketRoom ?.danhSachGhe) return null;
+        if (!ticketRoom?.danhSachGhe) return null;
 
-    const toggleSeat = (seat) => {
-        setSelectedSeats((prev) => {
-            const isSelected = prev.some((s) => s.maGhe === seat.maGhe);
-            return isSelected ? prev.filter((s) => s.maGhe !== seat.maGhe) : [...prev, seat];
-        });
-    }
-    const rows = listSeats(ticketRoom .danhSachGhe, 20);
-    return rows.map((row, rowIndex) => (
-        <div key={rowIndex} className="flex space-x-2 mb-2">
-            {row.map((seat) => {
-                return (
-                <div
-                    key={seat.maGhe}
-                    onClick={() => !seat.daDat && toggleSeat(seat)}
-                    className={`w-10 h-10 text-xs font-semibold rounded-lg flex items-center justify-center cursor-pointer transition-all
+        const toggleSeat = (seat) => {
+            setSelectedSeats((prev) => {
+                const isSelected = prev.some((s) => s.maGhe === seat.maGhe);
+                return isSelected ? prev.filter((s) => s.maGhe !== seat.maGhe) : [...prev, seat];
+            });
+        }
+        const rows = listSeats(ticketRoom.danhSachGhe, 20);
+        return rows.map((row, rowIndex) => (
+            <div key={rowIndex} className="flex space-x-2 mb-2">
+                {row.map((seat) => {
+                    return (
+                        <div
+                            key={seat.maGhe}
+                            onClick={() => !seat.daDat && toggleSeat(seat)}
+                            className={`w-10 h-10 text-xs font-semibold rounded-lg flex items-center justify-center cursor-pointer transition-all
                     ${seat.daDat ? "bg-slate-600 cursor-not-allowed" : selectedSeats.some((s) => s.maGhe === seat.maGhe) ? "bg-gradient-to-r from-purple-600 to-pink-600 text-white" : "bg-slate-700 hover:bg-purple-500"}`}
-                >
-                    {seat.tenGhe}
-                </div>
-                );
-            })}
+                        >
+                            {seat.tenGhe}
+                        </div>
+                    );
+                })}
             </div>
         ));
     };
@@ -260,7 +257,7 @@ export default function BookingModal(props) {
                             </div>
                         </div>
                     </div>
-                     {/* Chọn rạp */}
+                    {/* Chọn rạp */}
                     <div className={`booking-step ${currentStep === 1 ? '' : 'hidden'}`} id="step1">
                         <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 mb-8">
                             <div className="space-y-4">
@@ -291,7 +288,7 @@ export default function BookingModal(props) {
                             </div>
                         </div>
 
-                        <button 
+                        <button
                             onClick={() => {
                                 if (!selectedSchedule) return;
                                 setCurrentStep(2);
@@ -343,16 +340,16 @@ export default function BookingModal(props) {
                         </div>
 
                         <div className="flex space-x-4">
-                            <button 
+                            <button
                                 onClick={() => setCurrentStep(1)}
                                 className="flex-1 glass-effect text-white py-4 rounded-xl font-semibold transition-all hover:bg-slate-700/50 border border-slate-600/50 cursor-pointer"
                             >
                                 Quay lại
                             </button>
-                            <button 
+                            <button
                                 onClick={() => setCurrentStep(3)}
                                 className={`flex-1 ${selectedSeats.length !== 0 ? 'bg-gradient-to-r from-purple-600 to-pink-600 hover:from-purple-700 hover:to-pink-700 text-white hover:scale-[1.02] hover:shadow-lg cursor-pointer' : 'glass-effect text-slate-500 cursor-not-allowed border border-slate-700/50'} py-4 rounded-xl font-semibold transition-all`}
-                                disabled={selectedSeats.length === 0} 
+                                disabled={selectedSeats.length === 0}
                             >
                                 Nhập thông tin
                             </button>
@@ -370,23 +367,23 @@ export default function BookingModal(props) {
                                 {!user ? (
                                     <form onSubmit={handleSubmit} className="space-y-4">
                                         <div>
-                                        <label className="text-white">Tài khoản</label>
-                                        <input
-                                            className="w-full p-2 bg-slate-800 border border-slate-600 rounded text-white"
-                                            value={values.taiKhoan}
-                                            name='taiKhoan'
-                                            onChange={e => setValues({ ...values, taiKhoan: e.target.value })}
-                                        />
+                                            <label className="text-white">Tài khoản</label>
+                                            <input
+                                                className="w-full p-2 bg-slate-800 border border-slate-600 rounded text-white"
+                                                value={values.taiKhoan}
+                                                name='taiKhoan'
+                                                onChange={e => setValues({ ...values, taiKhoan: e.target.value })}
+                                            />
                                         </div>
                                         <div>
-                                        <label className="text-white">Mật khẩu</label>
-                                        <input
-                                            type="password"
-                                            className="w-full p-2 bg-slate-800 border border-slate-600 rounded text-white"
-                                            value={values.matKhau}
-                                            name='matKhau'
-                                            onChange={e => setValues({ ...values, matKhau: e.target.value })}
-                                        />
+                                            <label className="text-white">Mật khẩu</label>
+                                            <input
+                                                type="password"
+                                                className="w-full p-2 bg-slate-800 border border-slate-600 rounded text-white"
+                                                value={values.matKhau}
+                                                name='matKhau'
+                                                onChange={e => setValues({ ...values, matKhau: e.target.value })}
+                                            />
                                         </div>
                                         <button
                                             type="submit"
@@ -395,7 +392,7 @@ export default function BookingModal(props) {
                                             {isPending ? 'Đang đăng nhập...' : 'Đăng nhập'}
                                         </button>
                                     </form>
-                                    ) : (
+                                ) : (
                                     <div className="text-white space-y-2">
                                         <p><strong>Tài khoản:</strong> {user.taiKhoan}</p>
                                         <p><strong>Họ tên:</strong> {user.hoTen}</p>
@@ -417,7 +414,7 @@ export default function BookingModal(props) {
                                     </svg>
                                     Thông tin đặt vé
                                 </h3>
-                                
+
                                 <div className="space-y-4 text-sm">
                                     <div className="flex justify-between">
                                         <span className="text-slate-400">Phim:</span>
@@ -449,7 +446,7 @@ export default function BookingModal(props) {
                             </div>
                         </div>
                         <div className="flex space-x-4 mt-8">
-                             <button 
+                            <button
                                 onClick={() => setCurrentStep(2)}
                                 className="flex-1 glass-effect text-white py-4 rounded-xl font-semibold transition-all hover:bg-slate-700/50 border border-slate-600/50 cursor-pointer"
                             >
