@@ -1,14 +1,5 @@
 import api from "./api";
 
-export const getMoviesApi = async (groupCode = "GP01") => {
-    try {
-        const res = await api.get(`QuanLyPhim/LayDanhSachPhim?maNhom=${groupCode}`);
-        return res.data.content;
-    } catch (error) {
-        console.log(error);
-    }
-};
-
 export const getListMovieApi = async (groupCode, numberOfPages, numberOfElementsOnPage) => {
     try {
         const response = await api.get(`QuanLyPhim/LayDanhSachPhimPhanTrang?maNhom=${groupCode}&soTrang=${numberOfPages}&soPhanTuTrenTrang=${numberOfElementsOnPage}`);

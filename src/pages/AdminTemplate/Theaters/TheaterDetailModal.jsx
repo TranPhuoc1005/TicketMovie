@@ -1,7 +1,7 @@
 import { MapPin, X } from 'lucide-react';
 import React from 'react'
 
-const TheaterDetailModal = ({ isOpen, onClose, theater, theaterDetail, seatsByRoom }) => {
+const TheaterDetailModal = ({ isOpen, onClose, theater, theaterDetail }) => {
     if (!isOpen) return null;
     return (
         <div className="fixed inset-0 z-50 overflow-y-auto">
@@ -36,14 +36,7 @@ const TheaterDetailModal = ({ isOpen, onClose, theater, theaterDetail, seatsByRo
                                             Phòng chiếu: {item.danhSachRap.length} phòng
                                         </span>
                                     </div>
-                                    {/* danh sách từng phòng + số ghế */}
-                                    <ul className="pl-6 list-disc">
-                                        {item.danhSachRap.map((room) => (
-                                            <li key={room.maRap}>
-                                                {room.tenRap} - {seatsByRoom[room.tenRap] || '...'} ghế
-                                            </li>
-                                        ))}
-                                    </ul>
+                                    
                                 </div>
                             ))}
                         </div>
