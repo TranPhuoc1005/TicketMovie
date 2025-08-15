@@ -145,7 +145,7 @@ export default function DashboardPage() {
                         </h3>
                         <Link
                             to="/admin/bookings/"
-                            className="text-blue-600 hover:text-blue-800 text-sm font-medium"
+                            className="bg-gradient-to-r from-purple-400 to-pink-400 bg-clip-text text-transparent text-sm font-medium"
                         >
                             Xem tất cả
                         </Link>

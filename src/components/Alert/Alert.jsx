@@ -160,6 +160,18 @@ export default class Alert {
         return this.error('Lỗi kết nối mạng. Vui lòng thử lại!');
     }
 
+    static registerSuccess() {
+        return this.success('Đăng ký tài khoản thành công! Vui lòng đăng nhập.', {
+            autoClose: 3000
+        });
+    }
+
+    static registerError(message = 'Đăng ký thất bại! Vui lòng thử lại.') {
+        return this.error(message, {
+            autoClose: 4000
+        });
+    }
+
     static validationError(field = '') {
         return this.warning(
             field ? `Vui lòng nhập ${field}!` : 'Vui lòng kiểm tra lại thông tin!'

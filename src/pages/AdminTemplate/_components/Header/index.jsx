@@ -73,7 +73,7 @@ export default function Header(props) {
                             onClick={() => setDropdownOpen(!dropdownOpen)}
                             className="flex items-center space-x-2 focus:outline-none"
                         >
-                            <div className="w-8 h-8 bg-blue-500 rounded-full flex items-center justify-center">
+                            <div className="w-8 h-8 bg-gradient-to-r from-purple-600 to-pink-600 rounded-full flex items-center justify-center">
                                 <span className="text-white text-sm font-medium">
                                     A
                                 </span>

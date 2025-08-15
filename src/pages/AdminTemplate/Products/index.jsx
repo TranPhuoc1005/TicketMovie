@@ -1,30 +1,77 @@
-// ... các import phía trên
 import { useEffect, useRef, useState } from "react";
 import { useQuery } from "@tanstack/react-query";
-import { deleteMovieApi, getListMovieApi } from "../../../services/movie.api";
+import { deleteMovieApi, getListMovieApi, getMoviesApi } from "../../../services/movie.api";
 import Pagination from "../../../components/Pagination";
 import Movie from "./Movie";
 import AddMovieModal from "./_components/AddMovieModal";
-import Swal from "sweetalert2";
 import swalHelper from "../../../components/Alert/Swal";
+import { Search, X } from "lucide-react";
+import DetailMovieModal from "./_components/DetailMovieModal";
 
 export default function ProductsPage() {
     const [searchTerm, setSearchTerm] = useState("");
+    const [searchQuery, setSearchQuery] = useState("");
     const [currentPage, setCurrentPage] = useState(1);
     const [isPendingScroll, setIsPendingScroll] = useState(false);
     const [isModalOpen, setIsModalOpen] = useState(false);
+    const [isDetailModalOpen, setIsDetailModalOpen] = useState(false);
+    const [selectedMovie, setSelectedMovie] = useState(null);
     const [editData, setEditData] = useState(null);
     const hasClickedPagination = useRef(false);
+    const searchTimeoutRef = useRef(null);
     const itemsPerPage = 10;
 
-    const { data, isLoading, refetch } = useQuery({
+    useEffect(() => {
+        if (searchTimeoutRef.current) {
+            clearTimeout(searchTimeoutRef.current);
+        }
+        
+        searchTimeoutRef.current = setTimeout(() => {
+            setSearchQuery(searchTerm);
+            setCurrentPage(1);
+        }, 500);
+
+        return () => {
+            if (searchTimeoutRef.current) {
+                clearTimeout(searchTimeoutRef.current);
+            }
+        };
+    }, [searchTerm]);
+
+    const { data: paginatedData, isLoading: isPaginatedLoading, refetch } = useQuery({
         queryKey: ["list-movie", currentPage, itemsPerPage],
         queryFn: () => getListMovieApi("GP01", currentPage, itemsPerPage),
         keepPreviousData: true,
+        enabled: !searchQuery,
     });
 
-    const totalItems = data?.totalCount || 0;
-    const totalPages = Math.ceil(totalItems / itemsPerPage);
+    const { data: allMoviesData, isLoading: isAllMoviesLoading } = useQuery({
+        queryKey: ["all-movies"],
+        queryFn: () => getMoviesApi("GP01"),
+        keepPreviousData: true,
+        enabled: !!searchQuery,
+    });
+
+    const isLoading = searchQuery ? isAllMoviesLoading : isPaginatedLoading;
+    const allMovies = searchQuery ? (allMoviesData || []) : [];
+
+    const filteredMovies = searchQuery 
+        ? allMovies.filter(movie => 
+            movie.tenPhim.toLowerCase().includes(searchQuery.toLowerCase())
+          )
+        : [];
+
+    const totalFilteredItems = searchQuery ? filteredMovies.length : (paginatedData?.totalCount || 0);
+    const totalPages = searchQuery ? Math.ceil(filteredMovies.length / itemsPerPage) : Math.ceil((paginatedData?.totalCount || 0) / itemsPerPage);
+
+    const getPaginatedMovies = () => {
+        if (searchQuery) {
+            const startIndex = (currentPage - 1) * itemsPerPage;
+            const endIndex = startIndex + itemsPerPage;
+            return filteredMovies.slice(startIndex, endIndex);
+        }
+        return paginatedData?.items || [];
+    };
 
     useEffect(() => {
         if (currentPage > totalPages && totalPages > 0) {
@@ -33,7 +80,7 @@ export default function ProductsPage() {
     }, [currentPage, totalPages]);
 
     useEffect(() => {
-        if (isPendingScroll && !isLoading && data) {
+        if (isPendingScroll && !isLoading && (paginatedData || allMoviesData)) {
             const moviesSection = document.getElementById("movies");
             if (moviesSection) {
                 moviesSection.scrollIntoView({
@@ -44,7 +91,7 @@ export default function ProductsPage() {
             setIsPendingScroll(false);
             hasClickedPagination.current = false;
         }
-    }, [isLoading, data, isPendingScroll]);
+    }, [isLoading, paginatedData, allMoviesData, isPendingScroll]);
 
     const handlePageChange = (page) => {
         hasClickedPagination.current = true;
@@ -53,7 +100,26 @@ export default function ProductsPage() {
     };
 
     const handleOpenModal = () => setIsModalOpen(true);
-    const handleCloseModal = () => setIsModalOpen(false);
+    const handleCloseModal = () => {
+        setIsModalOpen(false);
+        setEditData(null);
+    };
+
+    const handleOpenDetailModal = (movie) => {
+        setSelectedMovie(movie);
+        setIsDetailModalOpen(true);
+    };
+
+    const handleCloseDetailModal = () => {
+        setIsDetailModalOpen(false);
+        setSelectedMovie(null);
+    };
+
+    const handleClearSearch = () => {
+        setSearchTerm("");
+        setSearchQuery("");
+        setCurrentPage(1);
+    };
 
     const handleDeleteMovie = async (maPhim) => {
         const result = await swalHelper.confirm("Phim này sẽ bị xóa vĩnh viễn", "Bạn chắc chắn muốn xóa ?", "Xóa", "Hủy" )
@@ -64,14 +130,18 @@ export default function ProductsPage() {
                 refetch();
             } catch (error) {
                 swalHelper.error("Có lỗi xày ra khi xóa phim.", "Thất bại");
+                console.log(error)
             }
         }
     };
 
     const renderMovies = () => {
         if (isLoading) return null;
-        if (data?.items?.length > 0) {
-            return data.items.map((movie) => (
+        
+        const moviesToRender = getPaginatedMovies();
+        
+        if (moviesToRender.length > 0) {
+            return moviesToRender.map((movie) => (
                 <Movie
                     key={movie.maPhim}
                     movie={movie}
@@ -80,13 +150,26 @@ export default function ProductsPage() {
                         setEditData(movie);
                         setIsModalOpen(true);
                     }}
+                    onView={handleOpenDetailModal}
                 />
             ));
         } else {
             return (
                 <tr>
-                    <td colSpan={6} className="text-center py-6 text-gray-500">
-                        Không có phim nào ở trang này.
+                    <td colSpan={6} className="text-center py-8 text-gray-500">
+                        {searchQuery ? (
+                            <div className="space-y-2">
+                                <p>Không tìm thấy phim nào với từ khóa "{searchQuery}"</p>
+                                <button
+                                    onClick={handleClearSearch}
+                                    className="bg-gradient-to-r from-purple-400 to-pink-400 bg-clip-text text-transparent underline"
+                                >
+                                    Xóa bộ lọc
+                                </button>
+                            </div>
+                        ) : (
+                            "Không có phim nào ở trang này."
+                        )}
                     </td>
                 </tr>
             );
@@ -109,13 +192,32 @@ export default function ProductsPage() {
                 </div>
 
                 <div className="flex flex-col sm:flex-row sm:items-center sm:space-x-4 gap-3 sm:gap-0">
-                    <input
-                        type="text"
-                        placeholder="Tìm kiếm phim..."
-                        value={searchTerm}
-                        onChange={(e) => setSearchTerm(e.target.value)}
-                        className="w-full sm:max-w-md px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent"
-                    />
+                    <div className="relative w-full sm:max-w-md">
+                        <Search 
+                            size={20} 
+                            className="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400" 
+                        />
+                        <input
+                            type="text"
+                            placeholder="Tìm kiếm phim theo tên..."
+                            value={searchTerm}
+                            onChange={(e) => setSearchTerm(e.target.value)}
+                            className="w-full pl-10 pr-10 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+                        />
+                        {searchTerm && (
+                            <button
+                                onClick={handleClearSearch}
+                                className="absolute right-3 top-1/2 transform -translate-y-1/2 text-gray-400 hover:text-gray-600"
+                            >
+                                <X size={20} />
+                            </button>
+                        )}
+                    </div>
+                    {searchQuery && (
+                        <div className="text-sm text-gray-600">
+                            Tìm thấy {totalFilteredItems} kết quả cho "{searchQuery}"
+                        </div>
+                    )}
                 </div>
             </div>
 
@@ -150,17 +252,19 @@ export default function ProductsPage() {
 
                 <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-3 px-4 py-4 border-t border-gray-200">
                     <p className="text-sm text-gray-600 text-center">
-                        Hiển thị {itemsPerPage} phim mỗi trang – Tổng cộng{" "}
-                        {totalItems} phim
+                        Hiển thị {Math.min(itemsPerPage, getPaginatedMovies().length)} phim mỗi trang – Tổng cộng{" "}
+                        {totalFilteredItems} phim{searchQuery ? " (đã lọc)" : ""}
                     </p>
-                    <Pagination
-                        currentPage={currentPage}
-                        totalPages={totalPages}
-                        onPageChange={handlePageChange}
-                        classNameBtn="px-3 py-1 border border-gray-300 rounded hover:bg-gray-50"
-                        prevText="Trước"
-                        nextText="Sau"
-                    />
+                    {totalPages > 1 && (
+                        <Pagination
+                            currentPage={currentPage}
+                            totalPages={totalPages}
+                            onPageChange={handlePageChange}
+                            classNameBtn="px-3 py-1 border border-gray-300 rounded hover:bg-gray-50"
+                            prevText="Trước"
+                            nextText="Sau"
+                        />
+                    )}
                 </div>
             </div>
 
@@ -170,7 +274,18 @@ export default function ProductsPage() {
                 </div>
             )}
 
-            <AddMovieModal isOpen={isModalOpen} onClose={handleCloseModal} editData={editData} setEditData={setEditData} />
+            <AddMovieModal 
+                isOpen={isModalOpen} 
+                onClose={handleCloseModal} 
+                editData={editData} 
+                setEditData={setEditData} 
+            />
+            
+            <DetailMovieModal
+                isOpen={isDetailModalOpen}
+                onClose={handleCloseDetailModal}
+                movie={selectedMovie}
+            />
         </div>
     );
 }

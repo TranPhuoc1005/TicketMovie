@@ -41,6 +41,7 @@ export default function ShowtimesPage() {
         staleTime: 1000 * 60 * 5 
     });
 
+
     const showtimesByDate = useMemo(() => {
         if (!scheduleData) return [];
         const selectedDateString = selectedDate.toDateString();
@@ -100,7 +101,7 @@ export default function ShowtimesPage() {
                     <h1 className="text-2xl font-bold text-gray-800">Quản lý lịch chiếu</h1>
                     <button 
                         onClick={() => setIsAddModalOpen(true)}
-                        className="bg-blue-600 text-white px-4 py-2 rounded-lg hover:bg-blue-700 flex items-center cursor-pointer"
+                        className="bg-gradient-to-r from-purple-600 to-pink-600 hover:from-purple-700 hover:to-pink-700 text-white px-4 py-2 rounded-lg hover:bg-blue-700 flex items-center cursor-pointer"
                     >
                         <PlusCircle size={20} className="mr-2" />
                         Thêm lịch chiếu
@@ -196,12 +197,6 @@ export default function ShowtimesPage() {
                                                     onClick={() => openModal(showtime)}
                                                 >
                                                     <Eye size={16} />
-                                                </button>
-                                                <button className="p-1 text-yellow-600 hover:bg-yellow-100 rounded cursor-pointer">
-                                                    <Edit size={16} />
-                                                </button>
-                                                <button className="p-1 text-red-600 hover:bg-red-100 rounded cursor-pointer">
-                                                    <Trash2 size={16} />
                                                 </button>
                                             </td>
                                         </tr>

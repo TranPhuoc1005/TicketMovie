@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { useForm, Controller } from "react-hook-form";
-import { X, Upload, Calendar, Star, Film, Link, FileText, Hash, Save, AlertCircle } from "lucide-react";
+import { X, Calendar, Star, Film, Link, FileText, Hash, Save, AlertCircle } from "lucide-react";
 import { format } from "date-fns";
 import z from "zod";
 import { zodResolver } from '@hookform/resolvers/zod'
@@ -26,7 +26,7 @@ const AddMovieModal = ({ isOpen, onClose, editData = null, setEditData }) => {
     const [previewImageUrl, setPreviewImageUrl] = useState(null);
     const [selectedImage, setSelectedImage] = useState(null);
 
-    const { register, handleSubmit, control, watch, setValue, reset, formState: { errors } } = useForm({
+    const { register, handleSubmit, control, watch, setValue, reset, formState: { errors, isValid } } = useForm({
         mode: "onChange",
         defaultValues: {
             tenPhim: "",
@@ -63,6 +63,7 @@ const AddMovieModal = ({ isOpen, onClose, editData = null, setEditData }) => {
         }
     }, [watchTenPhim, setValue]);
 
+
     // Add movie
     const queryClient = useQueryClient();
     const {mutate: addMovie } = useMutation({
@@ -80,6 +81,7 @@ const AddMovieModal = ({ isOpen, onClose, editData = null, setEditData }) => {
         }
     })
 
+    // Edit movie có hình
     const { mutate: updateMovie } = useMutation({
         mutationFn: updateMovieApi,
         onSuccess: () => {
@@ -137,8 +139,11 @@ const AddMovieModal = ({ isOpen, onClose, editData = null, setEditData }) => {
                 DangChieu: trangThai === "dangChieu",
                 Hot: Hot === true || Hot === "true"
             };
+            console.log("typeof hinhAnh:", typeof newValues.hinhAnh);
+            console.log("instanceof File:", newValues.hinhAnh instanceof File);
+            console.log("isEdit:", Boolean(editData));
             if(editData) {
-                // Edit movie
+                // Edit có hình mới
                 const formData = new FormData();
                 formData.append("maPhim", editData.maPhim);
                 formData.append("tenPhim", newValues.tenPhim);
