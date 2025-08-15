@@ -1,16 +1,25 @@
 import { format } from "date-fns";
 import { Edit, Eye, Star, Trash2 } from "lucide-react";
-import React from "react";
 
 export default function Movie(props) {
-    const { movie, onEdit, onDelete } = props;
+    const { movie, onEdit, onDelete, onView } = props;
+    
     return (
         <tr
             key={movie.maPhim}
             className="border-b border-gray-100 hover:bg-gray-50"
         >
             <td className="py-3 px-4 sm:py-4 sm:px-6">
-                <div className="mx-auto w-12 h-16 bg-gray-300 rounded"><img src={movie.hinhAnh} className="w-full h-full object-cover" alt="movie.tenPhim" /></div>
+                <div className="mx-auto w-12 h-16 bg-gray-300 rounded overflow-hidden">
+                    <img 
+                        src={movie.hinhAnh} 
+                        className="w-full h-full object-cover" 
+                        alt={movie.tenPhim}
+                        onError={(e) => {
+                            e.target.src = '/placeholder-movie.jpg';
+                        }}
+                    />
+                </div>
             </td>
             <td className="py-3 px-4 sm:py-4 sm:px-6">
                 <div className="font-medium text-gray-800">
@@ -29,7 +38,7 @@ export default function Movie(props) {
                 </div>
             </td>
             <td className="py-3 px-4 sm:py-4 sm:px-6 text-gray-600 text-center">
-                {movie.ngayKhoiChieu ? format(movie.ngayKhoiChieu, 'dd/MM/yyyy') : ''}
+                {movie.ngayKhoiChieu ? format(new Date(movie.ngayKhoiChieu), 'dd/MM/yyyy') : ''}
             </td>
             <td className="py-3 px-4 sm:py-4 sm:px-6 text-center">
                 <span
@@ -44,18 +53,24 @@ export default function Movie(props) {
             </td>
             <td className="py-3 px-4 sm:py-4 sm:px-6">
                 <div className="flex items-center justify-center space-x-2">
-                    <button className="p-1 text-blue-600 hover:bg-blue-100 rounded">
+                    <button 
+                        onClick={() => onView?.(movie)}
+                        className="p-1 text-blue-600 hover:bg-blue-100 rounded transition-colors"
+                        title="Xem chi tiết"
+                    >
                         <Eye size={16} />
                     </button>
                     <button 
                         onClick={() => onEdit?.(movie)}
-                        className="p-1 text-yellow-600 hover:bg-yellow-100 rounded"
+                        className="p-1 text-yellow-600 hover:bg-yellow-100 rounded transition-colors"
+                        title="Chỉnh sửa"
                     >
                         <Edit size={16} />
                     </button>
                     <button
                         onClick={() => onDelete?.(movie.maPhim)}
-                        className="p-1 text-red-600 hover:bg-red-100 rounded"
+                        className="p-1 text-red-600 hover:bg-red-100 rounded transition-colors"
+                        title="Xóa"
                     >
                         <Trash2 size={16} />
                     </button>

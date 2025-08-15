@@ -4,7 +4,6 @@ import { useDispatch } from 'react-redux';
 import { Navigate, useNavigate } from 'react-router-dom'
 import { loginApi } from '../../services/auth.api.js';
 import { clearUser, setUser } from '../../store/auth.slice.js';
-import { toast } from 'react-toastify';
 import Alert from '../../components/Alert/Alert.jsx';
 
 export default function LoginPage() {
@@ -16,7 +15,7 @@ export default function LoginPage() {
     const dispatch = useDispatch();
     
 
-    const { mutate:handleLogin, isPending, isError } = useMutation({
+    const { mutate:handleLogin } = useMutation({
         mutationFn:(valuesHandleLogin) => loginApi(valuesHandleLogin),
         onSuccess: (user) => {
             if (!user) {
@@ -165,13 +164,24 @@ export default function LoginPage() {
                         </span>
                     </button>
                 </form>
-
+                <div className="mt-4 text-center">
+                    <p className="text-gray-300 text-sm">
+                        Chưa có tài khoản?{' '}
+                        <button
+                        onClick={() => navigate('/register')}
+                        className="text-purple-300 hover:text-purple-100 transition-colors duration-200"
+                        >
+                        Đăng ký ngay
+                        </button>
+                    </p>
+                </div>
                 <div className="mt-8 text-center">
                     <p className="text-xs text-gray-300">
                         © 2025 Cinema Management System. Bảo mật cao.
                     </p>
                 </div>
             </div>
+           
         </section>
     )
 }

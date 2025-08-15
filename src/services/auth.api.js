@@ -8,3 +8,13 @@ export const loginApi = async (values) => {
         console.log(error);
     }
 }
+
+export const registerApi = async (values) => {
+    try {
+        const response = await api.post('/QuanLyNguoiDung/DangKy', values);
+        console.log(response)
+        return response.data;
+    } catch (error) {
+        console.log(error);
+    }
+}

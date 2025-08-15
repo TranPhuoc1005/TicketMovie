@@ -64,6 +64,7 @@ export default function ListMoviePage(props) {
                             currentPage={currentPage}
                             totalPages={totalPages}
                             onPageChange={handlePageChange}
+                            color="text-white"
                         />
                     </div>
                 </div>
