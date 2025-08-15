@@ -3,10 +3,12 @@ import BookingModal from "../_components/BookingModal/BookingModal";
 import ListMoviePage from "../ListMoviePage";
 import Banner from "./Banner";
 import Mainvisual from "./Mainvisual";
+import { useOutletContext } from "react-router-dom";
 
 export default function HomePage() {
     const [isModalOpen, setIsModalOpen] = useState(false);
     const [selectedMovie, setSelectedMovie] = useState(null);
+    const { refetchBookingHistory } = useOutletContext();
     return (
         <main>
             {/* Mainvisual */}
@@ -26,6 +28,7 @@ export default function HomePage() {
                     onClose={() => setIsModalOpen(false)} 
                     movie={selectedMovie}
                     cinemaDetail={selectedMovie?.cinemaDetail}
+                    refetchBookingHistory={refetchBookingHistory}
                 />
             )}
         </main>

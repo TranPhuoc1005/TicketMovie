@@ -1,21 +1,7 @@
 import { FC, lazy, LazyExoticComponent, Suspense } from "react";
 import { RouteObject } from "react-router-dom";
-// import HomeTemplate from "../components/Layout/HomeTemplate";
-// import HomePage from "../pages/HomeTemplate/HomePage";
-// import AboutPage from "../pages/HomeTemplate/AboutPage";
-// import LoginPage from "../pages/LoginPage";
-// import ListMoviePage from "../pages/HomeTemplate/ListMoviePage";
-// import MovieDetailsPage from "../pages/HomeTemplate/MovieDetailsPage";
-// import DashboardPage from "../pages/AdminTemplate/Dashboard";
-// import AdminTemplate from "../components/Layout/AdminTemplate";
-// import ProductsPage from "../pages/AdminTemplate/Products";
-// import FlashSalePage from "../pages/AdminTemplate/FlashSale";
 import ProtectedRoute from "./ProtectedRoute";
 import LoadingUI from "../components/Loading";
-// import UsersPage from "../pages/AdminTemplate/Users";
-// import TheatersPage from "../pages/AdminTemplate/Theaters";
-// import Bookings from "../pages/AdminTemplate/Bookings";
-// import ShowtimesPage from "../pages/AdminTemplate/Showtimes";
 
 const HomeTemplate = lazy(() => import('../components/Layout/HomeTemplate'))
 const HomePage = lazy(() => import('../pages/HomeTemplate/HomePage'))
@@ -31,13 +17,14 @@ const TheatersPage = lazy(() => import('../pages/AdminTemplate/Theaters'))
 const Bookings = lazy(() => import('../pages/AdminTemplate/Bookings'))
 const ShowtimesPage = lazy(() => import('../pages/AdminTemplate/Showtimes'))
 const LoginPage = lazy(() => import('../pages/LoginPage'))
+const RegisterPage = lazy(() => import('../pages/LoginPage/Register'))
 
 const withSuspense = (Component: LazyExoticComponent<FC>) => {
     return  <Suspense fallback={<LoadingUI />}><Component /></Suspense>
 }
 
 export const routes: RouteObject[] = [
-        {
+    {
         path: '',
         element: withSuspense(HomeTemplate),
         children: [
@@ -60,14 +47,18 @@ export const routes: RouteObject[] = [
         ]
     },
     {
-        path:'login',
-        element: <LoginPage />
+        path: 'login',
+        element: withSuspense(LoginPage) // Thêm Suspense cho LoginPage
+    },
+    {
+        path: 'register', // Thêm route cho RegisterPage
+        element: withSuspense(RegisterPage)
     },
     {
         path: 'admin',
         element: (
             <ProtectedRoute requiredRole="QuanTri">
-                <AdminTemplate />
+                {withSuspense(AdminTemplate)}
             </ProtectedRoute>
         ),
         children: [

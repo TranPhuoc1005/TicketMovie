@@ -23,7 +23,7 @@ export default function ListMovies(props) {
                 <h3 className="text-lg font-semibold">Phim mới nhất</h3>
                 <Link
                     to="/admin/products/"
-                    className="text-blue-600 hover:text-blue-800 text-sm font-medium"
+                    className="bg-gradient-to-r from-purple-400 to-pink-400 bg-clip-text text-transparent text-sm font-medium"
                 >
                     Xem tất cả
                 </Link>

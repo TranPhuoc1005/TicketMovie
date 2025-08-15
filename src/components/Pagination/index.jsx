@@ -6,6 +6,7 @@ const Pagination = ({
     onPageChange = () => {},
     className = "",
     classNameBtn="",
+    color="",
     prevText = "",
     nextText = ""
 }) => {
@@ -73,7 +74,7 @@ const Pagination = ({
                     )}
                     <button
                         onClick={() => onPageChange(totalPages)}
-                        className="px-3 py-1 border border-gray-300 rounded hover:bg-gray-50 border border-purple-500/30 hover:bg-purple-600/20 hover:scale-105"
+                        className={`px-3 py-1 border border-gray-300 rounded hover:bg-gray-50 border border-purple-500/30 hover:bg-purple-600/20 hover:scale-105 ${color ? color : ''}`}
                     >
                         {totalPages}
                     </button>
