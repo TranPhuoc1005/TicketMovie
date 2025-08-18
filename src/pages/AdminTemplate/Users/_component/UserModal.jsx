@@ -140,7 +140,7 @@ export default function UserModal({
 
     const handleBlur = (e) => {
         const { name, value } = e.target;
-        
+
         try {
             if (name === 'matKhau' && isEditMode && !value.trim()) {
                 setErrors(prev => ({
@@ -152,8 +152,8 @@ export default function UserModal({
 
             const schema = isEditMode ? editUserSchema : userSchema;
             const fieldSchema = schema.shape[name];
-            
-            if (fieldSchema) {
+
+            if (fieldSchema) {   // ✅ thêm điều kiện check
                 fieldSchema.parse(value);
                 setErrors(prev => ({
                     ...prev,
@@ -161,10 +161,10 @@ export default function UserModal({
                 }));
             }
         } catch (error) {
-            if (error instanceof z.ZodError) {
+            if (error instanceof z.ZodError && error.errors[0]) {
                 setErrors(prev => ({
                     ...prev,
-                    [name]: error.errors[0]?.message || 'Giá trị không hợp lệ'
+                    [name]: error.errors[0].message || 'Giá trị không hợp lệ'
                 }));
             }
         }

@@ -2,7 +2,7 @@ import { X } from 'lucide-react';
 import React from 'react'
 
 export default function UserDetailModal(props) {
-    const {  } = props;
+    const { userDetail, setIsDetailModalOpen } = props;
     return (
         <div className="fixed inset-0 z-50 overflow-y-auto">
             <div

@@ -79,7 +79,7 @@ export default function AddShowtimeModal({ isOpen, onClose }) {
         onError: (error) => {
             toast.error("Tạo lịch chiếu thất bại!");
             setIsSubmitting(false);
-            console.error("❌ Lỗi cụ thể:", error);
+            console.error(error);
         }
     });
 

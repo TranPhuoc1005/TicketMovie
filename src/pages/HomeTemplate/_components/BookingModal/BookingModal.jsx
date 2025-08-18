@@ -114,7 +114,7 @@ export default function BookingModal(props) {
                                     </div>
                                 </div>
                                 <div
-                                    className={`w-5 h-5 border-2 rounded-full transition-colors ${isActive ? "bg-gradient-to-r from-sky-300 to-blue-300 border-sky-300" : "border-sky-300"}`}
+                                    className={`w-5 h-5 border-2 rounded-full transition-colors flex-shrink-0 ${isActive ? "bg-gradient-to-r from-sky-300 to-blue-300 border-sky-300" : "border-sky-300"}`}
                                 ></div>
                             </div>
                         </div>
@@ -231,7 +231,7 @@ export default function BookingModal(props) {
                             key={seat.maGhe}
                             onClick={() => !seat.daDat && toggleSeat(seat)}
                             className={`w-10 h-10 text-xs font-semibold rounded-lg flex items-center justify-center cursor-pointer transition-all
-                    ${seat.daDat ? "bg-slate-600 cursor-not-allowed" : selectedSeats.some((s) => s.maGhe === seat.maGhe) ? "bg-gradient-to-r from-sky-300 to-blue-300 text-white" : "bg-slate-700 hover:bg-gradient-to-r hover:from-sky-300 hover:to-blue-300 hover:text-white"}`}
+                    ${seat.daDat ? "bg-slate-600 cursor-not-allowed" : selectedSeats.some((s) => s.maGhe === seat.maGhe) ? "bg-gradient-to-r from-sky-300 to-blue-300 text-white" : "bg-white hover:bg-gradient-to-r hover:from-sky-300 hover:to-blue-300 hover:text-white"}`}
                         >
                             {seat.tenGhe}
                         </div>

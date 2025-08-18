@@ -81,6 +81,8 @@ const AddMovieModal = ({ isOpen, onClose, editData = null, setEditData }) => {
         }
     })
 
+    console.log(editData)
+
     // Edit movie có hình
     const { mutate: updateMovie } = useMutation({
         mutationFn: updateMovieApi,
@@ -148,9 +150,6 @@ const AddMovieModal = ({ isOpen, onClose, editData = null, setEditData }) => {
                 DangChieu: trangThai === "dangChieu",
                 Hot: Hot === true || Hot === "true"
             };
-            console.log("typeof hinhAnh:", typeof newValues.hinhAnh);
-            console.log("instanceof File:", newValues.hinhAnh instanceof File);
-            console.log("isEdit:", Boolean(editData));
             if(editData) {
                 // Edit có hình mới
                 const formData = new FormData();
@@ -207,7 +206,7 @@ const AddMovieModal = ({ isOpen, onClose, editData = null, setEditData }) => {
                             </div>
                             <div>
                                 <h2 className="text-2xl font-bold text-gray-800">
-                                    Thêm phim mới
+                                    {!editData ? 'Thêm phim mới' : 'Sửa phim'}
                                 </h2>
                                 <p className="text-sm text-gray-600">
                                     Điền thông tin phim để thêm vào hệ thống
@@ -543,7 +542,8 @@ const AddMovieModal = ({ isOpen, onClose, editData = null, setEditData }) => {
                                 ) : (
                                     <>
                                         <Save size={18} />
-                                        <span>Thêm phim</span>
+                                        <span>{!editData ? 'Thêm phim' : 'Sửa phim'}</span>
+                                        
                                     </>
                                 )}
                             </button>

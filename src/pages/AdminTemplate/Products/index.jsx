@@ -260,9 +260,7 @@ export default function ProductsPage() {
                             currentPage={currentPage}
                             totalPages={totalPages}
                             onPageChange={handlePageChange}
-                            classNameBtn="px-3 py-1 border border-gray-300 rounded hover:bg-gray-50"
-                            prevText="Trước"
-                            nextText="Sau"
+                            classNameBtn="w-10 h-10 px-3 py-1 border border-gray-300 rounded hover:bg-gray-50"
                         />
                     )}
                 </div>

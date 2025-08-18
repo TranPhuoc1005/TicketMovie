@@ -56,7 +56,7 @@ const Pagination = ({
                         onClick={() => onPageChange(pageNum)}
                         className={`${classNameBtn ? classNameBtn : 'text-black w-10 h-10 rounded-lg text-sm font-medium transition-all duration-200 cursor-pointer hover:bg-gray-50'} ${
                         pageNum === currentPage
-                            ? 'bg-white text-black shadow-lg'
+                            ? 'bg-gradient-to-r from-sky-300 to-blue-300 text-white shadow-lg'
                             : 'border border-black hover:scale-105'
                         }`}
                     >
@@ -74,7 +74,7 @@ const Pagination = ({
                     )}
                     <button
                         onClick={() => onPageChange(totalPages)}
-                        className={`w-10 h-10 border border-black rounded hover:bg-gray-50 border hover:scale-105 ${color ? color : ''}`}
+                        className={classNameBtn ? classNameBtn : 'w-10 h-10 rounded-lg text-sm font-medium border border-black text-black hover:scale-105 transition-all duration-200 cursor-pointer'}
                     >
                         {totalPages}
                     </button>
