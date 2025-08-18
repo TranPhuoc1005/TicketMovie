@@ -27,7 +27,7 @@ const Pagination = ({
             <button
                 onClick={() => onPageChange(currentPage - 1)}
                 disabled={currentPage === 1}
-                className={classNameBtn ? classNameBtn : 'p-2 rounded-lg glass-effect border border-purple-500/30 text-white hover:bg-purple-600/20 disabled:opacity-50 disabled:cursor-not-allowed transition-all duration-200 hover:scale-105 cursor-pointer'}
+                className={classNameBtn ? classNameBtn : 'p-2 rounded-lg border border-black text-black disabled:opacity-50 disabled:cursor-not-allowed transition-all duration-200 hover:scale-105 cursor-pointer'}
             >
                 {prevText ? prevText : <ChevronLeft className="w-5 h-5" /> }
             </button>
@@ -36,12 +36,12 @@ const Pagination = ({
                 <>
                     <button
                         onClick={() => onPageChange(1)}
-                        className={classNameBtn ? classNameBtn : 'w-10 h-10 rounded-lg text-sm font-medium glass-effect border border-purple-500/30 text-white hover:bg-purple-600/20 hover:scale-105 transition-all duration-200 cursor-pointer'}
+                        className={classNameBtn ? classNameBtn : 'w-10 h-10 rounded-lg text-sm font-medium border border-black text-black hover:scale-105 transition-all duration-200 cursor-pointer'}
                     >
                         1
                     </button>
                     {startPage > 2 && (
-                        <span className="w-10 h-10 flex items-center justify-center text-slate-400 text-sm">
+                        <span className="w-10 h-10 flex items-center justify-center text-black text-sm">
                             ...
                         </span>
                     )}
@@ -54,10 +54,10 @@ const Pagination = ({
                     <button
                         key={pageNum}
                         onClick={() => onPageChange(pageNum)}
-                        className={`${classNameBtn ? classNameBtn : 'text-white w-10 h-10 rounded-lg text-sm font-medium transition-all duration-200 cursor-pointer'} ${
+                        className={`${classNameBtn ? classNameBtn : 'text-black w-10 h-10 rounded-lg text-sm font-medium transition-all duration-200 cursor-pointer hover:bg-gray-50'} ${
                         pageNum === currentPage
-                            ? 'bg-gradient-to-r from-purple-600 to-pink-600 text-white shadow-lg scale-110'
-                            : 'border border-purple-500/30 hover:bg-purple-600/20 hover:scale-105'
+                            ? 'bg-white text-black shadow-lg'
+                            : 'border border-black hover:scale-105'
                         }`}
                     >
                         {pageNum}
@@ -74,7 +74,7 @@ const Pagination = ({
                     )}
                     <button
                         onClick={() => onPageChange(totalPages)}
-                        className={`px-3 py-1 border border-gray-300 rounded hover:bg-gray-50 border border-purple-500/30 hover:bg-purple-600/20 hover:scale-105 ${color ? color : ''}`}
+                        className={`w-10 h-10 border border-black rounded hover:bg-gray-50 border hover:scale-105 ${color ? color : ''}`}
                     >
                         {totalPages}
                     </button>
@@ -84,7 +84,7 @@ const Pagination = ({
             <button
                 onClick={() => onPageChange(currentPage + 1)}
                 disabled={currentPage === totalPages}
-                className={classNameBtn ? classNameBtn : 'p-2 rounded-lg glass-effect border border-purple-500/30 text-white hover:bg-purple-600/20 disabled:opacity-50 disabled:cursor-not-allowed transition-all duration-200 hover:scale-105 cursor-pointer'}
+                className={classNameBtn ? classNameBtn : 'p-2 rounded-lg border border-black text-black disabled:opacity-50 disabled:cursor-not-allowed transition-all duration-200 hover:scale-105 cursor-pointer'}
             >
                 {nextText ? nextText : <ChevronRight className="w-5 h-5" /> }
 

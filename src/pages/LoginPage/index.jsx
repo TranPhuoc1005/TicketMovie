@@ -62,7 +62,7 @@ export default function LoginPage() {
     }
 
     return (
-        <section className="login_page h-screen flex items-center justify-center bg-gradient-to-br from-slate-900 via-purple-900 to-slate-900 min-h-screen">
+        <section className="login_page h-screen flex items-center justify-center bg-gradient-to-r from-rose-200 to-orange-200 min-h-screen">
             <div className="absolute inset-0 overflow-hidden">
                 <div className="floating absolute top-20 left-10 w-20 h-20 bg-white bg-opacity-10 rounded-full"></div>
                 <div className="floating absolute top-60 right-10 w-32 h-32 bg-white bg-opacity-10 rounded-full" style={{ animationDelay: "2s" }}></div>
@@ -72,14 +72,14 @@ export default function LoginPage() {
 
             <div className="glass-effect rounded-3xl shadow-2xl max-w-md w-full p-8 relative z-10">
                 <div className="text-center mb-8">
-                    <div className="pulse-glow inline-flex items-center justify-center w-20 h-20 bg-gradient-to-r from-purple-600 to-pink-600 rounded-full mb-4">
+                    <div className="pulse-glow inline-flex items-center justify-center w-20 h-20 bg-gradient-to-r from-sky-300 to-blue-300 rounded-full mb-4">
                         <svg className="w-10 h-10 text-white" fill="currentColor" viewBox="0 0 20 20">
                             <path d="M4 3a2 2 0 00-2 2v1.5h16V5a2 2 0 00-2-2H4z"/>
                             <path fillRule="evenodd" d="M18 8.5H2V15a2 2 0 002 2h12a2 2 0 002-2V8.5zM4 13a1 1 0 011-1h1a1 1 0 110 2H5a1 1 0 01-1-1zm5-1a1 1 0 100 2h1a1 1 0 100-2H9z" clipRule="evenodd"/>
                         </svg>
                     </div>
-                    <h1 className="text-3xl font-bold text-white mb-2">Cinema Admin</h1>
-                    <p className="text-gray-200 text-sm">Hệ thống quản lý rạp chiếu phim</p>
+                    <h1 className="text-3xl font-bold text-black mb-2">Cinema Admin</h1>
+                    <p className="text-black text-sm">Hệ thống quản lý rạp chiếu phim</p>
                 </div>
 
                 <form onSubmit={handleSubmit} id="loginForm" className="space-y-6">
@@ -95,7 +95,7 @@ export default function LoginPage() {
                             type="text" 
                             id="taiKhoan"
                             name="taiKhoan"
-                            className="w-full pl-10 pr-4 py-3 bg-white bg-opacity-20 border border-white border-opacity-30 rounded-xl text-black placeholder-gray-300 focus:outline-none focus:ring-2 focus:ring-purple-500 focus:border-transparent transition-all duration-300"
+                            className="w-full pl-10 pr-4 py-3 bg-white bg-opacity-20 border border-white border-opacity-30 rounded-xl text-black placeholder-gray-300 focus:outline-none focus:ring-2 focus:sky-300 focus:border-transparent transition-all duration-300"
                             placeholder="Tên đăng nhập"
                         />
                     </div>
@@ -112,7 +112,7 @@ export default function LoginPage() {
                             type="password" 
                             id="matKhau"
                             name="matKhau"
-                            className="w-full pl-10 pr-12 py-3 bg-white bg-opacity-20 border border-white border-opacity-30 rounded-xl text-black placeholder-gray-300 focus:outline-none focus:ring-2 focus:ring-purple-500 focus:border-transparent transition-all duration-300"
+                            className="w-full pl-10 pr-12 py-3 bg-white bg-opacity-20 border border-white border-opacity-30 rounded-xl text-black placeholder-gray-300 focus:outline-none focus:ring-2 focus:sky-300 focus:border-transparent transition-all duration-300"
                             placeholder="Mật khẩu"
                         />
                         <button 
@@ -128,21 +128,21 @@ export default function LoginPage() {
                     </div>
 
                     <div className="flex items-center justify-between">
-                        <label className="flex items-center text-sm text-gray-200 cursor-pointer">
+                        <label className="flex items-center text-sm text-black cursor-pointer">
                             <input type="checkbox" className="sr-only" />
                             <div className="relative w-4 h-4 bg-white bg-opacity-20 border border-white border-opacity-30 rounded transition-all duration-200 checkbox">
-                                <svg className="w-3 h-3 text-purple-600 absolute top-0.5 left-0.5 hidden check-icon" fill="currentColor" viewBox="0 0 20 20">
+                                <svg className="w-3 h-3 text-white absolute top-0.5 left-0.5 hidden check-icon" fill="currentColor" viewBox="0 0 20 20">
                                     <path fillRule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clipRule="evenodd"/>
                                 </svg>
                             </div>
                             <span className="ml-2">Ghi nhớ đăng nhập</span>
                         </label>
-                        <a href="#" className="text-sm text-purple-300 hover:text-purple-100 transition-colors duration-200">
+                        <a href="#" className="text-sm text-black hover:text-underline transition-colors duration-200">
                             Quên mật khẩu?
                         </a>
                     </div>
                     <button 
-                        className="w-full bg-gradient-to-r from-purple-600 to-pink-600 text-white font-semibold py-3 px-6 rounded-xl hover:from-purple-700 hover:to-pink-700 focus:outline-none focus:ring-2 focus:ring-purple-500 focus:ring-offset-2 focus:ring-offset-transparent transform hover:scale-105 transition-all duration-300 shadow-lg hover:shadow-xl cursor-pointer"
+                        className="w-full bg-gradient-to-r from-sky-300 to-blue-300 text-white font-semibold py-3 px-6 rounded-xl  focus:outline-none focus:ring-2 focus:sky-300 focus:ring-offset-2 focus:ring-offset-transparent transform hover:scale-105 transition-all duration-300 shadow-lg hover:shadow-xl cursor-pointer"
                     >
                         <span className="flex items-center justify-center">
                             <span id="loginText" className="ml-5">Đăng nhập</span>
@@ -154,7 +154,7 @@ export default function LoginPage() {
                     <button 
                         type="button"
                         onClick={() => navigate('/')}
-                        className="w-full bg-gradient-to-r from-purple-600 to-pink-600 text-white font-semibold py-3 px-6 rounded-xl hover:from-purple-700 hover:to-pink-700 focus:outline-none focus:ring-2 focus:ring-purple-500 focus:ring-offset-2 focus:ring-offset-transparent transform hover:scale-105 transition-all duration-300 shadow-lg hover:shadow-xl cursor-pointer"
+                        className="w-full bg-gradient-to-r from-sky-300 to-blue-300 text-white font-semibold py-3 px-6 rounded-xl  focus:outline-none focus:ring-2 focus:sky-300 focus:ring-offset-2 focus:ring-offset-transparent transform hover:scale-105 transition-all duration-300 shadow-lg hover:shadow-xl cursor-pointer"
                     >
                         <span className="flex items-center justify-center">
                             <svg id="loginIcon" className="w-5 h-5 mr-2" fill="currentColor" viewBox="0 0 20 20">
@@ -165,18 +165,18 @@ export default function LoginPage() {
                     </button>
                 </form>
                 <div className="mt-4 text-center">
-                    <p className="text-gray-300 text-sm">
+                    <p className="text-black text-sm">
                         Chưa có tài khoản?{' '}
                         <button
                         onClick={() => navigate('/register')}
-                        className="text-purple-300 hover:text-purple-100 transition-colors duration-200"
+                        className="text-sky-300 transition-colors duration-200"
                         >
                         Đăng ký ngay
                         </button>
                     </p>
                 </div>
                 <div className="mt-8 text-center">
-                    <p className="text-xs text-gray-300">
+                    <p className="text-xs text-black">
                         © 2025 Cinema Management System. Bảo mật cao.
                     </p>
                 </div>

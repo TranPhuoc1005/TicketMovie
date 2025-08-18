@@ -3,11 +3,9 @@ import { Link, NavLink } from 'react-router-dom'
 import { useSelector, useDispatch } from 'react-redux'
 import { clearUser } from '../../../../store/auth.slice';
 import Alert from '../../../../components/Alert/Alert';
-import { useQuery } from '@tanstack/react-query';
-import { getBookingHistoryApi } from '../../../../services/users.api';
 
 export default function Header(props) {
-    const { bookingHistory, refetchBookingHistory } = props;
+    const { bookingHistory } = props;
     const user = useSelector((state) => state.authSlice.user);
     const dispatch = useDispatch();
     const [showUserDropdown, setShowUserDropdown] = useState(false);
@@ -43,28 +41,26 @@ export default function Header(props) {
     
 
     return (
-        <header className="fixed top-0 left-0 right-0 z-50 glass-effect">
+        <header className="fixed top-0 left-0 right-0 z-50 bg-white">
             <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
                 <div className="flex items-center justify-between h-16">
                     <div className="flex items-center space-x-3">
-                        <div className="bg-gradient-to-r from-purple-600 to-pink-600 p-2 rounded-xl">
+                        <div className="bg-gradient-to-r from-sky-300 to-blue-300 p-2 rounded-xl">
                             <svg className="w-6 h-6 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M7 4V2a1 1 0 011-1h8a1 1 0 011 1v2h4a1 1 0 011 1v16a1 1 0 01-1 1H3a1 1 0 01-1-1V5a1 1 0 011-1h4zM9 4h6M9 8h6m-6 4h6m-6 4h3"></path>
                             </svg>
                         </div>
                         <NavLink to='/'>
-                            <h1 className="text-2xl font-bold bg-gradient-to-r from-purple-400 to-pink-400 bg-clip-text text-transparent">
-                                CinemaX
+                            <h1 className="text-2xl font-bold bg-gradient-to-r from-rose-200 to-orange-200 bg-clip-text text-transparent">
+                                THP Cinema
                             </h1>
                         </NavLink>
                     </div>
 
                     <nav className="hidden lg:flex items-center space-x-8">
-                        <NavLink to='/' className="text-slate-300 hover:text-purple-400 transition-colors font-medium hover:scale-105 transform">Trang chủ</NavLink>
-                        <button onClick={() => scrollToSection('movies')} className="text-slate-300 hover:text-purple-400 transition-colors font-medium hover:scale-105 transform">Phim</button>
-                        <button onClick={() => scrollToSection('theaters')} className="text-slate-300 hover:text-purple-400 transition-colors font-medium hover:scale-105 transform">Rạp</button>
-                        <button onClick={() => scrollToSection('promotions')} className="text-slate-300 hover:text-purple-400 transition-colors font-medium hover:scale-105 transform">Khuyến mãi</button>
-                        <button onClick={() => scrollToSection('contact')} className="text-slate-300 hover:text-purple-400 transition-colors font-medium hover:scale-105 transform">Liên hệ</button>
+                        <NavLink to='/' className="text-black hover:text-blue-500 transition-colors font-medium hover:scale-105 transform">Trang chủ</NavLink>
+                        <button onClick={() => scrollToSection('movies')} className="text-black hover:text-blue-500 transition-colors font-medium hover:scale-105 transform">Phim</button>
+                        <button onClick={() => scrollToSection('contact')} className="text-black hover:text-blue-500 transition-colors font-medium hover:scale-105 transform">Liên hệ</button>
                     </nav>
 
                     <div className="flex items-center space-x-4">
@@ -81,7 +77,7 @@ export default function Header(props) {
                                         e.stopPropagation();
                                         setShowUserDropdown((prev) => !prev);
                                     }}
-                                    className="cursor-pointer w-10 h-10 bg-gradient-to-r from-purple-600 to-pink-600 rounded-full flex items-center justify-center"
+                                    className="cursor-pointer w-10 h-10 bg-gradient-to-r from-sky-300 to-blue-300 rounded-full flex items-center justify-center"
                                 >
                                     <svg className="w-5 h-5 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                         <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z" />
@@ -138,7 +134,7 @@ export default function Header(props) {
                                 )}
                             </div>
                         ) : (
-                            <NavLink to="/login/" className="bg-gradient-to-r from-purple-600 to-pink-600 text-white px-6 py-2 rounded-xl font-semibold hover:scale-105 transition-transform hover:shadow-lg">
+                            <NavLink to="/login/" className="bg-gradient-to-r from-sky-300 to-blue-300 text-white px-6 py-2 rounded-xl font-semibold hover:scale-105 transition-transform hover:shadow-lg">
                                 Đăng nhập
                             </NavLink>
                         )}

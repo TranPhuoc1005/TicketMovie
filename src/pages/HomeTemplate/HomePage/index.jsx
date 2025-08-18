@@ -1,7 +1,6 @@
 import { useState } from "react";
 import BookingModal from "../_components/BookingModal/BookingModal";
 import ListMoviePage from "../ListMoviePage";
-import Banner from "./Banner";
 import Mainvisual from "./Mainvisual";
 import { useOutletContext } from "react-router-dom";
 
@@ -12,9 +11,12 @@ export default function HomePage() {
     return (
         <main>
             {/* Mainvisual */}
-            <Mainvisual />
+            <Mainvisual 
+                setIsModalOpen={setIsModalOpen}
+                setSelectedMovie={setSelectedMovie}
+                cinemaDetail={selectedMovie?.cinemaDetail}
+            />
             {/* Banner */}
-            <Banner />
             {/* List film */}
             <ListMoviePage 
                 setIsModalOpen={setIsModalOpen}

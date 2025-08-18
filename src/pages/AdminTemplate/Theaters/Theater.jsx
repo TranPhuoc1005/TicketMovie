@@ -66,7 +66,7 @@ export default function Theater(props) {
                         {theaterDetail && theaterDetail.length > 2 && (
                             <button
                                 onClick={handleOpenModal}
-                                className="flex ml-auto mr-auto mt-5 bg-gradient-to-r from-purple-400 to-pink-400 bg-clip-text text-transparent text-[14px] font-medium ml-6 hover:underline"
+                                className="flex ml-auto mr-auto mt-5 bg-gradient-to-r from-rose-200 to-orange-200 bg-clip-text text-transparent text-[14px] font-medium ml-6 hover:underline"
                             >
                                 Xem thêm {theaterDetail.length - 2} cụm rạp
                             </button>
@@ -82,7 +82,7 @@ export default function Theater(props) {
                 <div className="flex sm:flex-row sm:items-center gap-2 mt-auto">
                     <button
                         onClick={handleOpenModal}
-                        className="flex-1 bg-gradient-to-r from-purple-600 to-pink-600 text-white px-3 py-2 rounded-lg hover:bg-blue-700 text-sm cursor-pointer">
+                        className="flex-1 bg-gradient-to-r from-sky-300 to-blue-300 text-white px-3 py-2 rounded-lg hover:bg-blue-700 text-sm cursor-pointer">
                         Chi tiết
                     </button>
                 </div>

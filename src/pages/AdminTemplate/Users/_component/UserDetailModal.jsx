@@ -58,7 +58,7 @@ export default function UserDetailModal(props) {
                     <div className="p-5 border-t border-gray-200">
                         <button
                             onClick={() => setIsDetailModalOpen(false)}
-                            className="w-full px-4 py-2 bg-gradient-to-r from-purple-600 to-pink-600 text-white rounded-lg font-medium hover:from-purple-700 hover:to-pink-700 transition-all duration-300"
+                            className="w-full px-4 py-2 bg-gradient-to-r from-sky-300 to-blue-300 text-white rounded-lg font-medium  transition-all duration-300"
                         >
                             Đóng
                         </button>

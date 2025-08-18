@@ -5,9 +5,9 @@ import { useQuery } from '@tanstack/react-query';
 
 export default function ShowtimeModal({ showtime, isOpen, onClose }) {
     const { data: seatDetails, isLoading, isError, refetch } = useQuery({
-        queryKey: ['list-seats', showtime?.id],
-        queryFn: () => getSeatListApi(showtime.id),
-        enabled: isOpen && !!showtime?.id,
+        queryKey: ['list-seats', showtime?.maLichChieu],
+        queryFn: () => getSeatListApi(showtime.maLichChieu),
+        enabled: isOpen && !!showtime?.maLichChieu,
     });
 
     useEffect(() => {
@@ -34,6 +34,13 @@ export default function ShowtimeModal({ showtime, isOpen, onClose }) {
         }
     };
 
+    const formatCurrency = (amount) => {
+        return new Intl.NumberFormat('vi-VN', {
+            style: 'currency', 
+            currency: 'VND'
+        }).format(amount);
+    };
+
     return (
         <div className="fixed inset-0 z-50 overflow-y-auto">
             <div
@@ -43,10 +50,10 @@ export default function ShowtimeModal({ showtime, isOpen, onClose }) {
             <div className="flex min-h-full items-center justify-center p-4">
                 <div className="relative bg-white rounded-xl max-w-5xl w-full max-h-[90vh] overflow-hidden shadow-2xl">
                     {/* Header */}
-                    <div className="flex items-center justify-between p-6 border-b border-gray-200 bg-gradient-to-r from-blue-50 to-indigo-50">
+                    <div className="flex items-center justify-between p-6 border-b border-gray-200 bg-gradient-to-r from-sky-300 to-blue-300 ">
                         <div>
-                            <h2 className="text-xl font-bold text-gray-800">Chi tiết lịch chiếu</h2>
-                            <p className="text-sm text-gray-600 mt-1">Mã lịch chiếu: #{showtime.id}</p>
+                            <h2 className="text-xl font-bold text-gray-800 text-shadow">Chi tiết lịch chiếu</h2>
+                            <p className="text-sm text-gray-600 mt-1">Mã lịch chiếu: #{showtime.maLichChieu}</p>
                         </div>
                         <button
                             onClick={onClose}
@@ -64,16 +71,16 @@ export default function ShowtimeModal({ showtime, isOpen, onClose }) {
                                 <div className="space-y-2">
                                     <div className="flex items-center space-x-2">
                                         <Film className="text-blue-600" size={20} />
-                                        <h3 className="text-lg font-semibold text-gray-800">{showtime.movie}</h3>
+                                        <h3 className="text-lg font-semibold text-gray-800">{showtime.tenPhim}</h3>
                                     </div>
-                                    <p><strong>Hệ thống rạp:</strong> {showtime.theater}</p>
-                                    <p><strong>Cụm rạp:</strong> {showtime.cinema}</p>
-                                    <p><strong>Phòng chiếu:</strong> {showtime.room}</p>
+                                    <p><strong>Hệ thống rạp:</strong> {showtime.tenHeThongRap}</p>
+                                    <p><strong>Cụm rạp:</strong> {showtime.tenCumRap}</p>
+                                    <p><strong>Phòng chiếu:</strong> {showtime.tenRap}</p>
                                 </div>
                                 <div className="space-y-2">
-                                    <p><strong>Ngày chiếu:</strong> {showtime.date}</p>
-                                    <p><strong>Giờ chiếu:</strong> {showtime.time}</p>
-                                    <p><strong>Giá vé:</strong> {showtime.price?.toLocaleString()}₫</p>
+                                    <p><strong>Ngày chiếu:</strong> {showtime.ngayChieu}</p>
+                                    <p><strong>Giờ chiếu:</strong> {showtime.gioChieu}</p>
+                                    <p><strong>Giá vé:</strong> {formatCurrency(showtime.giaVe)}</p>
                                     <p><strong>Mã phòng:</strong> {showtime.maRap || 'N/A'}</p>
                                 </div>
                             </div>
@@ -109,9 +116,8 @@ export default function ShowtimeModal({ showtime, isOpen, onClose }) {
                         {seatDetails && !isLoading && !isError && (
                             <div className="space-y-6">
                                 {/* Thông tin phim từ API */}
-                                {/* Thông tin phim từ API */}
                                 {seatDetails.thongTinPhim && (
-                                    <div className="bg-gradient-to-r from-blue-50 to-indigo-50 rounded-lg p-4 sm:p-6">
+                                    <div className="bg-gradient-to-r from-sky-300 to-blue-300  rounded-lg p-4 sm:p-6">
                                         <div className="flex flex-col sm:flex-row items-start sm:items-center sm:space-x-4 space-y-4 sm:space-y-0">
                                             {seatDetails.thongTinPhim.hinhAnh && (
                                                 <img
@@ -125,14 +131,14 @@ export default function ShowtimeModal({ showtime, isOpen, onClose }) {
                                             )}
                                             <div className="flex-1">
                                                 <div className="flex items-center space-x-2 mb-3">
-                                                    <Film className="text-blue-600" size={20} />
-                                                    <h3 className="text-lg sm:text-xl font-bold text-gray-800">
+                                                    <Film className="text-gray-700" size={20} />
+                                                    <h3 className="text-lg sm:text-xl font-bold text-gray-800 text-shadow">
                                                         {seatDetails.thongTinPhim.tenPhim}
                                                     </h3>
                                                 </div>
                                                 <div className="grid grid-cols-1 lg:grid-cols-2 gap-2 text-sm">
                                                     <div className="flex items-center space-x-2">
-                                                        <MapPin className="text-gray-500 flex-shrink-0" size={16} />
+                                                        <MapPin className="text-gray-600 flex-shrink-0" size={16} />
                                                         <span className="text-gray-700">{seatDetails.thongTinPhim.tenCumRap}</span>
                                                     </div>
                                                     <div className="text-gray-700"><strong>Phòng:</strong> {seatDetails.thongTinPhim.tenRap}</div>
@@ -237,7 +243,7 @@ export default function ShowtimeModal({ showtime, isOpen, onClose }) {
                                                                 {seat.loaiGhe === "Thuong" ? "Thường": "Vip"}
                                                             </span>
                                                         </td>
-                                                        <td className="px-3 sm:px-4 py-2 font-medium">{seat.giaVe?.toLocaleString()}₫</td>
+                                                        <td className="px-3 sm:px-4 py-2 font-medium">{formatCurrency(seat.giaVe)}</td>
                                                         <td className="px-3 sm:px-4 py-2">
                                                             <span className={`px-2 py-1 rounded-full text-xs font-medium ${seat.daDat ? 'bg-red-100 text-red-800' : 'bg-green-100 text-green-800'}`}>
                                                                 {seat.daDat ? 'Đã đặt' : 'Trống'}

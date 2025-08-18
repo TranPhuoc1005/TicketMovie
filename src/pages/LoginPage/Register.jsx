@@ -80,7 +80,7 @@ export default function RegisterPage() {
     }
 
     return (
-        <section className="register_page h-screen flex items-center justify-center bg-gradient-to-br from-slate-900 via-purple-900 to-slate-900 min-h-screen">
+        <section className="register_page h-screen flex items-center justify-center bg-gradient-to-r from-rose-200 to-orange-200 min-h-screen">
             <div className="absolute inset-0 overflow-hidden">
                 <div className="floating absolute top-20 left-10 w-20 h-20 bg-white bg-opacity-10 rounded-full"></div>
                 <div className="floating absolute top-60 right-10 w-32 h-32 bg-white bg-opacity-10 rounded-full" style={{ animationDelay: "2s" }}></div>
@@ -90,13 +90,13 @@ export default function RegisterPage() {
 
             <div className="glass-effect rounded-3xl shadow-2xl max-w-md w-full p-8 relative z-10 max-h-[90vh] overflow-y-auto">
                 <div className="text-center mb-6">
-                    <div className="pulse-glow inline-flex items-center justify-center w-20 h-20 bg-gradient-to-r from-purple-600 to-pink-600 rounded-full mb-4">
+                    <div className="pulse-glow inline-flex items-center justify-center w-20 h-20 bg-gradient-to-r from-sky-300 to-blue-300 rounded-full mb-4">
                         <svg className="w-10 h-10 text-white" fill="currentColor" viewBox="0 0 20 20">
                             <path d="M8 9a3 3 0 100-6 3 3 0 000 6zM8 11a6 6 0 016 6H2a6 6 0 016-6zM16 7a1 1 0 10-2 0v1h-1a1 1 0 100 2h1v1a1 1 0 102 0v-1h1a1 1 0 100-2h-1V7z"/>
                         </svg>
                     </div>
-                    <h1 className="text-3xl font-bold text-white mb-2">Đăng Ký</h1>
-                    <p className="text-gray-200 text-sm">Tạo tài khoản mới cho hệ thống</p>
+                    <h1 className="text-3xl font-bold text-black mb-2">Đăng Ký</h1>
+                    <p className="text-blackgray-200 text-sm">Tạo tài khoản mới cho hệ thống</p>
                 </div>
 
                 <form onSubmit={handleSubmit} className="space-y-4">
@@ -111,7 +111,7 @@ export default function RegisterPage() {
                             value={values.hoTen}
                             type="text" 
                             name="hoTen"
-                            className="w-full pl-10 pr-4 py-3 bg-white bg-opacity-20 border border-white border-opacity-30 rounded-xl text-black placeholder-gray-300 focus:outline-none focus:ring-2 focus:ring-purple-500 focus:border-transparent transition-all duration-300"
+                            className="w-full pl-10 pr-4 py-3 bg-white bg-opacity-20 border border-white border-opacity-30 rounded-xl text-black placeholder-gray-300 focus:outline-none focus:ring-2 focus:sky-300 focus:border-transparent transition-all duration-300"
                             placeholder="Họ và tên"
                             required
                         />
@@ -128,7 +128,7 @@ export default function RegisterPage() {
                             value={values.taiKhoan}
                             type="text" 
                             name="taiKhoan"
-                            className="w-full pl-10 pr-4 py-3 bg-white bg-opacity-20 border border-white border-opacity-30 rounded-xl text-black placeholder-gray-300 focus:outline-none focus:ring-2 focus:ring-purple-500 focus:border-transparent transition-all duration-300"
+                            className="w-full pl-10 pr-4 py-3 bg-white bg-opacity-20 border border-white border-opacity-30 rounded-xl text-black placeholder-gray-300 focus:outline-none focus:ring-2 focus:sky-300 focus:border-transparent transition-all duration-300"
                             placeholder="Tên đăng nhập"
                             required
                         />
@@ -146,7 +146,7 @@ export default function RegisterPage() {
                             value={values.email}
                             type="email" 
                             name="email"
-                            className="w-full pl-10 pr-4 py-3 bg-white bg-opacity-20 border border-white border-opacity-30 rounded-xl text-black placeholder-gray-300 focus:outline-none focus:ring-2 focus:ring-purple-500 focus:border-transparent transition-all duration-300"
+                            className="w-full pl-10 pr-4 py-3 bg-white bg-opacity-20 border border-white border-opacity-30 rounded-xl text-black placeholder-gray-300 focus:outline-none focus:ring-2 focus:sky-300 focus:border-transparent transition-all duration-300"
                             placeholder="Email"
                             required
                         />
@@ -163,7 +163,7 @@ export default function RegisterPage() {
                             value={values.soDt}
                             type="tel" 
                             name="soDt"
-                            className="w-full pl-10 pr-4 py-3 bg-white bg-opacity-20 border border-white border-opacity-30 rounded-xl text-black placeholder-gray-300 focus:outline-none focus:ring-2 focus:ring-purple-500 focus:border-transparent transition-all duration-300"
+                            className="w-full pl-10 pr-4 py-3 bg-white bg-opacity-20 border border-white border-opacity-30 rounded-xl text-black placeholder-gray-300 focus:outline-none focus:ring-2 focus:sky-300 focus:border-transparent transition-all duration-300"
                             placeholder="Số điện thoại"
                             required
                         />
@@ -180,7 +180,7 @@ export default function RegisterPage() {
                             value={values.matKhau}
                             type="password" 
                             name="matKhau"
-                            className="w-full pl-10 pr-4 py-3 bg-white bg-opacity-20 border border-white border-opacity-30 rounded-xl text-black placeholder-gray-300 focus:outline-none focus:ring-2 focus:ring-purple-500 focus:border-transparent transition-all duration-300"
+                            className="w-full pl-10 pr-4 py-3 bg-white bg-opacity-20 border border-white border-opacity-30 rounded-xl text-black placeholder-gray-300 focus:outline-none focus:ring-2 focus:sky-300 focus:border-transparent transition-all duration-300"
                             placeholder="Mật khẩu"
                             required
                         />
@@ -197,7 +197,7 @@ export default function RegisterPage() {
                             value={confirmPassword}
                             type="password" 
                             name="confirmPassword"
-                            className="w-full pl-10 pr-4 py-3 bg-white bg-opacity-20 border border-white border-opacity-30 rounded-xl text-black placeholder-gray-300 focus:outline-none focus:ring-2 focus:ring-purple-500 focus:border-transparent transition-all duration-300"
+                            className="w-full pl-10 pr-4 py-3 bg-white bg-opacity-20 border border-white border-opacity-30 rounded-xl text-black placeholder-gray-300 focus:outline-none focus:ring-2 focus:sky-300 focus:border-transparent transition-all duration-300"
                             placeholder="Xác nhận mật khẩu"
                             required
                         />
@@ -206,7 +206,7 @@ export default function RegisterPage() {
                     <button 
                         type="submit"
                         disabled={isPending}
-                        className="w-full bg-gradient-to-r from-purple-600 to-pink-600 text-white font-semibold py-3 px-6 rounded-xl hover:from-purple-700 hover:to-pink-700 focus:outline-none focus:ring-2 focus:ring-purple-500 focus:ring-offset-2 focus:ring-offset-transparent transform hover:scale-105 transition-all duration-300 shadow-lg hover:shadow-xl cursor-pointer disabled:opacity-50 disabled:cursor-not-allowed"
+                        className="w-full bg-gradient-to-r from-sky-300 to-blue-300 text-white font-semibold py-3 px-6 rounded-xl  focus:outline-none focus:ring-2 focus:sky-300 focus:ring-offset-2 focus:ring-offset-transparent transform hover:scale-105 transition-all duration-300 shadow-lg hover:shadow-xl cursor-pointer disabled:opacity-50 disabled:cursor-not-allowed"
                     >
                         <span className="flex items-center justify-center">
                             {isPending ? (
@@ -231,7 +231,7 @@ export default function RegisterPage() {
                     <button 
                         type="button"
                         onClick={() => navigate('/login')}
-                        className="w-full bg-transparent border border-white border-opacity-30 text-white font-semibold py-3 px-6 rounded-xl hover:bg-white hover:bg-opacity-10 hover:text-black focus:outline-none focus:ring-2 focus:ring-purple-500 focus:ring-offset-2 focus:ring-offset-transparent transition-all duration-300"
+                        className="w-full bg-transparent border border-black border-opacity-30 text-black font-semibold py-3 px-6 rounded-xl hover:bg-white hover:bg-opacity-10 hover:text-black focus:outline-none focus:ring-2 focus:sky-300 focus:ring-offset-2 focus:ring-offset-transparent transition-all duration-300"
                     >
                         <span className="flex items-center justify-center">
                             <svg className="w-5 h-5 mr-2" fill="currentColor" viewBox="0 0 20 20">
@@ -243,7 +243,7 @@ export default function RegisterPage() {
                 </form>
 
                 <div className="mt-6 text-center">
-                    <p className="text-xs text-gray-300">
+                    <p className="text-xs text-black">
                         © 2025 Cinema Management System. Bảo mật cao.
                     </p>
                 </div>

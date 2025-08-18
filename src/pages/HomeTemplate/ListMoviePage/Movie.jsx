@@ -24,11 +24,10 @@ export default function Movie(props) {
     const priceTicket = cinemaDetail?.heThongRapChieu?.[0]?.cumRapChieu?.[0]?.lichChieuPhim?.[0]?.giaVe;
     const durationFilm = cinemaDetail?.heThongRapChieu?.[0]?.cumRapChieu?.[0]?.lichChieuPhim?.[0]?.thoiLuong;
     return (
-        <div className="group relative glass-effect rounded-2xl overflow-hidden hover-lift border border-slate-700/50 hover:border-purple-500/50">
-            <div className="absolute inset-0 bg-gradient-to-br from-purple-600/10 to-pink-600/10 opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>
+        <div className="group relative bg-white rounded-2xl overflow-hidden hover-lift border border-slate-700/50 hover:border-rose-300">
             <div className="relative p-6 flex flex-col h-full">
                 <div onClick={handleViewDetail} className="mb-6 relative cursor-pointer">
-                    <div className="aspect-[3/4] bg-gradient-to-br from-blue-600 to-purple-600 rounded-xl flex items-center justify-center text-6xl group-hover:scale-105 transition-transform duration-500">
+                    <div className="aspect-[3/4] bg-gradient-to-r from-sky-300 to-blue-300 rounded-xl flex items-center justify-center text-6xl group-hover:scale-105 transition-transform duration-500">
                         <img src={movie.hinhAnh} className="object-cover w-full h-full" alt={movie.tenPhim} />
                     </div>
                     <div className="absolute top-3 right-3 bg-yellow-500/20 backdrop-blur-sm px-3 py-1 rounded-full flex items-center space-x-1">
@@ -38,30 +37,30 @@ export default function Movie(props) {
                         <span className="text-yellow-400 font-semibold text-sm">{movie.danhGia}</span>
                     </div>
                 </div>
-                <h3 onClick={handleViewDetail} className="text-xl font-bold text-white mb-2 group-hover:text-purple-300 transition-colors  cursor-pointer">
+                <h3 onClick={handleViewDetail} className="text-xl font-bold text-black mb-2 transition-colors  cursor-pointer">
                     {movie.tenPhim}
                 </h3>
 
                 <div className="flex flex-col flex-wrap gap-1 mb-1">
-                    <div className="flex items-center space-x-2 text-purple-300">
+                    <div className="flex items-center space-x-2 text-black">
                         <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                             <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"></path>
                         </svg>
                         <span className="font-medium">{durationFilm} Phút</span>
                     </div>
                 </div>
-                <div className="flex items-center space-x-2 text-purple-300 mb-4">
+                <div className="flex items-center space-x-2 text-black mb-4">
                     <span className="font-medium">{movie.dangChieu ? "Đang chiếu" : "Sắp chiếu"}</span>
                 </div>
                 
                 <div className="space-y-2 mb-4">
-                    <p className="text-slate-300 text-sm line-clamp-2">{movie.moTa}</p>
+                    <p className="text-black text-sm line-clamp-2">{movie.moTa}</p>
                 </div>
                 <div className="flex items-center justify-between mt-auto">
                     <div className="text-2xl font-bold text-green-400">
                         {priceTicket ? `${priceTicket.toLocaleString()}đ` : 'Chưa có' }
                     </div>
-                    <button onClick={handleBookTicket} className={` ${movie.dangChieu ? 'bg-gradient-to-r from-purple-600 to-pink-600 hover:from-purple-700 hover:to-pink-700 hover:scale-105 hover:shadow-lg cursor-pointer ' : 'bg-stone-600 opacity-70 cursor-not-allowed' } text-white px-6 py-2 rounded-xl font-semibold transition-all duration-300  flex items-center space-x-2 `} disabled={!movie.dangChieu ? true : false}>
+                    <button onClick={handleBookTicket} className={` ${movie.dangChieu ? 'bg-gradient-to-r from-sky-300 to-blue-300  hover:scale-105 hover:shadow-lg cursor-pointer ' : 'bg-stone-600 opacity-70 cursor-not-allowed' } text-white px-6 py-2 rounded-xl font-semibold transition-all duration-300  flex items-center space-x-2 `} disabled={!movie.dangChieu ? true : false}>
                         <svg className="w-4 h-4" fill="currentColor" viewBox="0 0 24 24">
                             <path d="M8 5v14l11-7z"/>
                         </svg>

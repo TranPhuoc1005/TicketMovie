@@ -110,7 +110,7 @@ export default function MovieDetailsPage() {
                                 <div className="flex flex-col sm:flex-row gap-4">
                                     <button 
                                         onClick={() => setIsModalOpen(true)}
-                                        className="bg-gradient-to-r from-purple-600 to-pink-600 hover:from-purple-700 hover:to-pink-700 text-white px-8 py-4 rounded-xl font-bold text-lg transition-all duration-300 hover:scale-105 hover:shadow-xl flex items-center justify-center space-x-3 cursor-pointer"
+                                        className="bg-gradient-to-r from-sky-300 to-blue-300  text-white px-8 py-4 rounded-xl font-bold text-lg transition-all duration-300 hover:scale-105 hover:shadow-xl flex items-center justify-center space-x-3 cursor-pointer"
                                     >
                                         <svg className="w-6 h-6" fill="currentColor" viewBox="0 0 24 24">
                                             <path d="M8 5v14l11-7z"/>
