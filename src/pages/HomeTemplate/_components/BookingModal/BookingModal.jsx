@@ -5,7 +5,6 @@ import { loginApi } from '../../../../services/auth.api.js';
 import { clearUser, setUser } from '../../../../store/auth.slice.js';
 import { getTicketApi } from '../../../../services/ticket.api.js';
 import { bookingTicketApi } from '../../../../store/booking.slice.js';
-import { getBookingHistoryApi } from '../../../../services/users.api.js';
 
 
 export default function BookingModal(props) {
@@ -115,8 +114,7 @@ export default function BookingModal(props) {
                                     </div>
                                 </div>
                                 <div
-                                    className={`w-5 h-5 border-2 rounded-full transition-colors ${isActive ? "bg-purple-500 border-purple-500" : "border-purple-500"
-                                        }`}
+                                    className={`w-5 h-5 border-2 rounded-full transition-colors ${isActive ? "bg-gradient-to-r from-sky-300 to-blue-300 border-sky-300" : "border-sky-300"}`}
                                 ></div>
                             </div>
                         </div>
@@ -165,7 +163,7 @@ export default function BookingModal(props) {
                                 }
                             }}
                             className={`flex-shrink-0 p-3 rounded-xl text-center cursor-pointer min-w-[80px] transition-all border ${isActive
-                                    ? "bg-gradient-to-r from-purple-600 to-pink-600 text-white border-none"
+                                    ? "bg-gradient-to-r from-sky-300 to-blue-300 text-white border-none"
                                     : "glass-effect text-white border-purple-500/50 hover:from-purple-600 hover:to-pink-600 hover:bg-gradient-to-r hover:text-white hover:border-none"
                                 }`}
                         >
@@ -197,7 +195,7 @@ export default function BookingModal(props) {
                         setSelectedTime(hhmm);
                         setSelectedSchedule(item);
                     }}
-                    className={`py-3 px-4 rounded-xl font-semibold transition-all cursor-pointer ${isActive ? "bg-gradient-to-r from-purple-600 to-pink-600 text-white hover:scale-105" : "glass-effect text-slate-300 hover:text-white hover:bg-gradient-to-r hover:from-purple-600 hover:to-pink-600 hover:scale-105"}`}
+                    className={`py-3 px-4 rounded-xl font-semibold transition-all cursor-pointer ${isActive ? "bg-gradient-to-r from-sky-300 to-blue-300 text-white hover:scale-105" : "glass-effect text-slate-300 hover:text-white hover:bg-gradient-to-r hover:from-purple-600 hover:to-pink-600 hover:scale-105"}`}
                 >
                     {hhmm}
                 </button>
@@ -233,7 +231,7 @@ export default function BookingModal(props) {
                             key={seat.maGhe}
                             onClick={() => !seat.daDat && toggleSeat(seat)}
                             className={`w-10 h-10 text-xs font-semibold rounded-lg flex items-center justify-center cursor-pointer transition-all
-                    ${seat.daDat ? "bg-slate-600 cursor-not-allowed" : selectedSeats.some((s) => s.maGhe === seat.maGhe) ? "bg-gradient-to-r from-purple-600 to-pink-600 text-white" : "bg-slate-700 hover:bg-purple-500"}`}
+                    ${seat.daDat ? "bg-slate-600 cursor-not-allowed" : selectedSeats.some((s) => s.maGhe === seat.maGhe) ? "bg-gradient-to-r from-sky-300 to-blue-300 text-white" : "bg-slate-700 hover:bg-gradient-to-r hover:from-sky-300 hover:to-blue-300 hover:text-white"}`}
                         >
                             {seat.tenGhe}
                         </div>
@@ -273,25 +271,25 @@ export default function BookingModal(props) {
                         <div className="flex items-center justify-center mb-8">
                             <div className="flex items-center space-x-4">
                                 <div className="flex items-center">
-                                    <div className={`w-10 h-10 ${currentStep === 1 ? "bg-gradient-to-r from-purple-600 to-pink-600 text-white" : "bg-slate-700 text-slate-400"} rounded-full flex items-center justify-center font-semibold text-sm`}>
+                                    <div className={`w-10 h-10 ${currentStep === 1 ? "bg-gradient-to-r from-sky-300 to-blue-300 text-white" : "bg-slate-700 text-slate-400"} rounded-full flex items-center justify-center font-semibold text-sm`}>
                                         1
                                     </div>
                                     <span className="ml-3 text-white font-medium">Chọn rạp & suất</span>
                                 </div>
-                                <div className={`w-16 h-1 ${currentStep === 1 ? "bg-gradient-to-r from-purple-600 to-pink-600 rounded" : "bg-slate-700"}`}></div>
+                                <div className={`w-16 h-1 ${currentStep === 1 ? "bg-gradient-to-r from-sky-300 to-blue-300 rounded" : "bg-slate-700"}`}></div>
 
 
                                 <div className="flex items-center">
-                                    <div className={`w-10 h-10 ${currentStep === 2 ? "bg-gradient-to-r from-purple-600 to-pink-600 text-white" : "bg-slate-700 text-slate-400"} rounded-full flex items-center justify-center font-semibold text-sm`}>
+                                    <div className={`w-10 h-10 ${currentStep === 2 ? "bg-gradient-to-r from-sky-300 to-blue-300 text-white" : "bg-slate-700 text-slate-400"} rounded-full flex items-center justify-center font-semibold text-sm`}>
                                         2
                                     </div>
                                     <span className="ml-3 text-slate-400 font-medium">Chọn ghế</span>
                                 </div>
-                                <div className={`w-16 h-1 ${currentStep === 2 ? "bg-gradient-to-r from-purple-600 to-pink-600 rounded" : "bg-slate-700"}`}></div>
+                                <div className={`w-16 h-1 ${currentStep === 2 ? "bg-gradient-to-r from-sky-300 to-blue-300 rounded" : "bg-slate-700"}`}></div>
 
 
                                 <div className="flex items-center">
-                                    <div className={`w-10 h-10 ${currentStep === 3 ? "bg-gradient-to-r from-purple-600 to-pink-600 text-white" : "bg-slate-700 text-slate-400"} rounded-full flex items-center justify-center font-semibold text-sm`}>
+                                    <div className={`w-10 h-10 ${currentStep === 3 ? "bg-gradient-to-r from-sky-300 to-blue-300 text-white" : "bg-slate-700 text-slate-400"} rounded-full flex items-center justify-center font-semibold text-sm`}>
                                         3
                                     </div>
                                     <span className="ml-3 text-slate-400 font-medium">Thanh toán</span>
@@ -303,7 +301,7 @@ export default function BookingModal(props) {
                             <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 mb-8">
                                 <div className="space-y-4">
                                     <h3 className="text-xl font-bold text-white mb-4 flex items-center">
-                                        <svg className="w-5 h-5 mr-2 text-purple-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                        <svg className="w-5 h-5 mr-2 text-sky-300" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                             <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z"></path>
                                             <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M15 11a3 3 0 11-6 0 3 3 0 016 0z"></path>
                                         </svg>
@@ -315,7 +313,7 @@ export default function BookingModal(props) {
                                 </div>
                                 <div className="space-y-4">
                                     <h3 className="text-xl font-bold text-white mb-4 flex items-center">
-                                        <svg className="w-5 h-5 mr-2 text-purple-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                        <svg className="w-5 h-5 mr-2 text-sky-300" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                             <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z"></path>
                                         </svg>
                                         Chọn ngày & giờ
@@ -335,7 +333,7 @@ export default function BookingModal(props) {
                                     setCurrentStep(2);
                                 }}
                                 disabled={!selectedSchedule}
-                                className={`w-full py-4 rounded-xl font-semibold text-lg transition-all ${selectedTime ? 'bg-gradient-to-r from-purple-600 to-pink-600 hover:from-purple-700 hover:to-pink-700 text-white hover:scale-[1.02] hover:shadow-lg cursor-pointer' : 'glass-effect text-slate-500 cursor-not-allowed border border-slate-700/50'}`}
+                                className={`w-full py-4 rounded-xl font-semibold text-lg transition-all ${selectedTime ? 'bg-gradient-to-r from-sky-300 to-blue-300  text-white hover:scale-[1.02] hover:shadow-lg cursor-pointer' : 'glass-effect text-slate-500 cursor-not-allowed border border-slate-700/50'}`}
                             >
                                 Tiếp tục chọn ghế
                             </button>
@@ -357,7 +355,7 @@ export default function BookingModal(props) {
                                             <span className="text-slate-300">Trống</span>
                                         </div>
                                         <div className="flex items-center space-x-2">
-                                            <div className="w-4 h-4 bg-gradient-to-r from-purple-600 to-pink-600 rounded"></div>
+                                            <div className="w-4 h-4 bg-gradient-to-r from-sky-300 to-blue-300 rounded"></div>
                                             <span className="text-slate-300">Đã chọn</span>
                                         </div>
                                         <div className="flex items-center space-x-2">
@@ -366,7 +364,7 @@ export default function BookingModal(props) {
                                         </div>
                                     </div>
                                 </div>
-                                <div className="bg-gradient-to-r from-purple-900/50 to-pink-900/50 rounded-2xl p-6 border border-purple-500/30 mb-6">
+                                <div className="bg-gradient-to-r from-sky-300/50 to-blue-300/50 rounded-2xl p-6 border mb-6">
                                     <div className="flex items-center justify-between text-white">
                                         <div>
                                             <p className="font-semibold mb-1">Ghế đã chọn: {selectedSeats.map((s) => s.tenGhe).join(', ') || 'Chưa chọn'}</p>
@@ -389,7 +387,7 @@ export default function BookingModal(props) {
                                 </button>
                                 <button
                                     onClick={() => setCurrentStep(3)}
-                                    className={`flex-1 ${selectedSeats.length !== 0 ? 'bg-gradient-to-r from-purple-600 to-pink-600 hover:from-purple-700 hover:to-pink-700 text-white hover:scale-[1.02] hover:shadow-lg cursor-pointer' : 'glass-effect text-slate-500 cursor-not-allowed border border-slate-700/50'} py-4 rounded-xl font-semibold transition-all`}
+                                    className={`flex-1 ${selectedSeats.length !== 0 ? 'bg-gradient-to-r from-sky-300 to-blue-300  text-white hover:scale-[1.02] hover:shadow-lg cursor-pointer' : 'glass-effect text-slate-500 cursor-not-allowed border border-slate-700/50'} py-4 rounded-xl font-semibold transition-all`}
                                     disabled={selectedSeats.length === 0}
                                 >
                                     Nhập thông tin
@@ -400,7 +398,7 @@ export default function BookingModal(props) {
                             <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
                                 <div className="space-y-6">
                                     <h3 className="text-xl font-bold text-white mb-4 flex items-center">
-                                        <svg className="w-5 h-5 mr-2 text-purple-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                        <svg className="w-5 h-5 mr-2 text-sky-300" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                             <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z"></path>
                                         </svg>
                                         Thông tin khách hàng
@@ -428,7 +426,7 @@ export default function BookingModal(props) {
                                             </div>
                                             <button
                                                 type="submit"
-                                                className="w-full bg-gradient-to-r from-purple-600 to-pink-600 text-white py-2 rounded"
+                                                className="w-full bg-gradient-to-r from-sky-300 to-blue-300 text-white py-2 rounded"
                                             >
                                                 {isPending ? 'Đang đăng nhập...' : 'Đăng nhập'}
                                             </button>
@@ -441,7 +439,7 @@ export default function BookingModal(props) {
                                             <button
                                                 onClick={handleLogout}
                                                 type="submit"
-                                                className="w-full bg-gradient-to-r from-purple-600 to-pink-600 text-white py-2 rounded cursor-pointer"
+                                                className="w-full bg-gradient-to-r from-sky-300 to-blue-300 text-white py-2 rounded cursor-pointer"
                                             >
                                                 Đăng xuất
                                             </button>
@@ -450,7 +448,7 @@ export default function BookingModal(props) {
                                 </div>
                                 <div className="glass-effect rounded-2xl p-6 border border-slate-600 h-fit">
                                     <h3 className="text-xl font-bold text-white mb-6 flex items-center">
-                                        <svg className="w-5 h-5 mr-2 text-purple-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                        <svg className="w-5 h-5 mr-2 text-sky-300" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                             <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"></path>
                                         </svg>
                                         Thông tin đặt vé

@@ -41,7 +41,7 @@ const swalHelper = {
             cancelButtonText: cancelText,
             reverseButtons: true,
             customClass: {
-                confirmButton: "bg-gradient-to-r from-purple-600 to-pink-600 text-white font-semibold px-6 py-2 rounded-lg hover:from-purple-700 hover:to-pink-700",
+                confirmButton: "bg-gradient-to-r from-sky-300 to-blue-300 text-white font-semibold px-6 py-2 rounded-lg ",
                 cancelButton: "bg-gray-200 text-gray-700 font-medium px-6 py-2 rounded-lg hover:bg-gray-300 mr-3",
             },
             buttonsStyling: false,

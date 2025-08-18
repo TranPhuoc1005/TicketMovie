@@ -8,7 +8,7 @@ import { getMoviesApi } from "../../../services/movie.api";
 import { getDetailTheatersApi, getListTheatersApi } from "../../../services/cinema.api";
 import { createShowtimeApi } from "../../../store/schedule.slice";
 import { toast } from "react-toastify";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 
 const schema = z.object({
     maPhim: z.string().nonempty("Vui lòng chọn phim"),
@@ -98,6 +98,15 @@ export default function AddShowtimeModal({ isOpen, onClose }) {
         reset();
         onClose();
     };
+    
+    useEffect(() => {
+        if (isOpen) {
+            document.body.style.overflow = 'hidden';
+            return () => {
+                document.body.style.overflow = '';
+            }
+        }
+    }, [isOpen]);
 
     if (!isOpen) return null;
 
@@ -201,7 +210,7 @@ export default function AddShowtimeModal({ isOpen, onClose }) {
                         {/* Buttons */}
                         <div className="flex justify-end gap-4 pt-4 border-t border-gray-200">
                             <button type="button" onClick={handleClose} className="px-6 py-3 border border-gray-300 text-gray-700 rounded-xl hover:bg-gray-50" disabled={isSubmitting}>Hủy</button>
-                            <button type="submit" disabled={isSubmitting} className="px-6 py-3 bg-gradient-to-r from-purple-600 to-pink-600 hover:from-purple-700 hover:to-pink-700 text-white rounded-xl flex items-center gap-2">
+                            <button type="submit" disabled={isSubmitting} className="px-6 py-3 bg-gradient-to-r from-sky-300 to-blue-300  text-white rounded-xl flex items-center gap-2">
                                 {isSubmitting && <div className="w-4 h-4 border-2 border-white border-t-transparent rounded-full animate-spin" />}
                                 {isSubmitting ? "Đang tạo..." : "Tạo lịch chiếu"}
                             </button>

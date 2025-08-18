@@ -128,6 +128,15 @@ const AddMovieModal = ({ isOpen, onClose, editData = null, setEditData }) => {
         setEditData(null);
         onClose();
     };
+
+    useEffect(() => {
+        if (isOpen) {
+            document.body.style.overflow = 'hidden';
+            return () => {
+                document.body.style.overflow = '';
+            }
+        }
+    }, [isOpen]);
     
     const onSubmitForm = async (values) => {
         try {
@@ -193,7 +202,7 @@ const AddMovieModal = ({ isOpen, onClose, editData = null, setEditData }) => {
                 <div className="relative bg-white rounded-2xl shadow-2xl w-full max-w-4xl transform transition-all duration-300 scale-100">
                     <div className="flex items-center justify-between p-6 border-b border-gray-200 bg-gradient-to-r from-purple-50 to-pink-50 rounded-t-2xl">
                         <div className="flex items-center space-x-3">
-                            <div className="w-10 h-10 bg-gradient-to-br from-purple-500 to-pink-500 rounded-xl flex items-center justify-center">
+                            <div className="w-10 h-10 bg-gradient-to-r from-rose-200 to-orange-200 rounded-xl flex items-center justify-center">
                                 <Film size={24} className="text-white" />
                             </div>
                             <div>
@@ -524,7 +533,7 @@ const AddMovieModal = ({ isOpen, onClose, editData = null, setEditData }) => {
                             <button
                                 type="submit"
                                 disabled={isSubmitting}
-                                className="px-6 py-3 bg-gradient-to-r from-purple-600 to-pink-600 text-white rounded-xl hover:from-purple-700 hover:to-pink-700 transition-all duration-200 hover:scale-105 hover:shadow-lg disabled:opacity-50 disabled:cursor-not-allowed flex items-center space-x-2 cursor-pointer"
+                                className="px-6 py-3 bg-gradient-to-r from-sky-300 to-blue-300 text-white rounded-xl  transition-all duration-200 hover:scale-105 hover:shadow-lg disabled:opacity-50 disabled:cursor-not-allowed flex items-center space-x-2 cursor-pointer"
                             >
                                 {isSubmitting ? (
                                     <>
@@ -542,29 +551,6 @@ const AddMovieModal = ({ isOpen, onClose, editData = null, setEditData }) => {
                     </form>
                 </div>
             </div>
-
-            <style jsx>{`
-                .slider::-webkit-slider-thumb {
-                    appearance: none;
-                    width: 20px;
-                    height: 20px;
-                    border-radius: 50%;
-                    background: #fbbf24;
-                    cursor: pointer;
-                    border: 2px solid #ffffff;
-                    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.2);
-                }
-
-                .slider::-moz-range-thumb {
-                    width: 20px;
-                    height: 20px;
-                    border-radius: 50%;
-                    background: #fbbf24;
-                    cursor: pointer;
-                    border: 2px solid #ffffff;
-                    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.2);
-                }
-            `}</style>
         </div>
     );
 };

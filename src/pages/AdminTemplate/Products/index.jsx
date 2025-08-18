@@ -162,7 +162,7 @@ export default function ProductsPage() {
                                 <p>Không tìm thấy phim nào với từ khóa "{searchQuery}"</p>
                                 <button
                                     onClick={handleClearSearch}
-                                    className="bg-gradient-to-r from-purple-400 to-pink-400 bg-clip-text text-transparent underline"
+                                    className="bg-gradient-to-r from-rose-200 to-orange-200 bg-clip-text text-transparent underline"
                                 >
                                     Xóa bộ lọc
                                 </button>
@@ -185,7 +185,7 @@ export default function ProductsPage() {
                     </h1>
                     <button
                         onClick={handleOpenModal}
-                        className="bg-gradient-to-r from-purple-600 to-pink-600 hover:from-purple-700 hover:to-pink-700 text-white px-4 py-2 rounded-lg font-bold text-1xl transition-all duration-300 hover:scale-105 hover:shadow-2xl hover:shadow-purple-500/25 flex items-center space-x-2 cursor-pointer"
+                        className="bg-gradient-to-r from-sky-300 to-blue-300  text-white px-4 py-2 rounded-lg font-bold text-1xl transition-all duration-300 hover:scale-105 hover:shadow-2xl hover:shadow-purple-500/25 flex items-center space-x-2 cursor-pointer"
                     >
                         Thêm phim mới
                     </button>

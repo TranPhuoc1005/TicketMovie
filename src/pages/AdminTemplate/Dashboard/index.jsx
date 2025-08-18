@@ -1,4 +1,4 @@
-import { Film,  Users,  Ticket,  Star, DollarSign } from 'lucide-react';
+import { Film, Users, Ticket, DollarSign } from 'lucide-react';
 import { Link } from 'react-router-dom';
 import { useQuery } from '@tanstack/react-query';
 import { getListMovieApi } from '../../../services/movie.api';
@@ -10,7 +10,7 @@ export default function DashboardPage() {
     const [currentPage, setCurrentPage] = useState(1);
     const itemsPerPage = 7;
 
-    const { data, isLoading, isError } = useQuery({
+    const { data } = useQuery({
         queryKey: ['list-movie', currentPage, itemsPerPage],
         queryFn: () => {
             return getListMovieApi('GP01', currentPage, itemsPerPage);
@@ -133,52 +133,9 @@ export default function DashboardPage() {
                 })}
             </div>
 
-            <div className="grid grid-cols-1 xl:grid-cols-3 gap-6">
+            <div className="w-full">
                 {/* Recent Movies */}
                 <ListMovies data={data} itemsPerPage={itemsPerPage} />
-
-                {/* Recent Bookings */}
-                <div className="bg-white rounded-xl p-6 shadow-sm border border-gray-200">
-                    <div className="flex items-center justify-between mb-6">
-                        <h3 className="text-lg font-semibold">
-                            Đặt vé gần đây
-                        </h3>
-                        <Link
-                            to="/admin/bookings/"
-                            className="bg-gradient-to-r from-purple-400 to-pink-400 bg-clip-text text-transparent text-sm font-medium"
-                        >
-                            Xem tất cả
-                        </Link>
-                    </div>
-                    <div className="space-y-4">
-                        {recentBookings.map((booking) => (
-                            <div
-                                key={booking.id}
-                                className="flex items-center justify-between p-3 bg-gray-50 rounded-lg hover:bg-gray-100 transition-colors"
-                            >
-                                <div className="flex-1">
-                                    <p className="font-medium text-gray-800">
-                                        #{booking.id}
-                                    </p>
-                                    <p className="text-sm text-gray-600">
-                                        {booking.movie}
-                                    </p>
-                                    <p className="text-xs text-gray-500">
-                                        {booking.customer}
-                                    </p>
-                                </div>
-                                <div className="text-right">
-                                    <p className="font-medium text-green-600">
-                                        {booking.amount}
-                                    </p>
-                                    <p className="text-xs text-gray-500">
-                                        {booking.time}
-                                    </p>
-                                </div>
-                            </div>
-                        ))}
-                    </div>
-                </div>
             </div>
         </div>
     );

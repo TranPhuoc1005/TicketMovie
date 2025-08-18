@@ -15,7 +15,7 @@ export default function HomeTemplate() {
     });
     return (
         <div className='wrapper'>
-            <div className='bg-gradient-to-br from-slate-900 via-purple-900 to-slate-900 min-h-screen'>
+            <div className='bg-gradient-to-r from-rose-200 to-orange-200 min-h-screen'>
                 <Header 
                     bookingHistory={bookingHistory} 
                     refetchBookingHistory={refetchBookingHistory} 

@@ -11,10 +11,8 @@ const MovieDetailsPage = lazy(() => import('../pages/HomeTemplate/MovieDetailsPa
 const DashboardPage = lazy(() => import('../pages/AdminTemplate/Dashboard'))
 const AdminTemplate = lazy(() => import('../components/Layout/AdminTemplate'))
 const ProductsPage = lazy(() => import('../pages/AdminTemplate/Products'))
-const FlashSalePage = lazy(() => import('../pages/AdminTemplate/FlashSale'))
 const UsersPage = lazy(() => import('../pages/AdminTemplate/Users'))
 const TheatersPage = lazy(() => import('../pages/AdminTemplate/Theaters'))
-const Bookings = lazy(() => import('../pages/AdminTemplate/Bookings'))
 const ShowtimesPage = lazy(() => import('../pages/AdminTemplate/Showtimes'))
 const LoginPage = lazy(() => import('../pages/LoginPage'))
 const RegisterPage = lazy(() => import('../pages/LoginPage/Register'))
@@ -48,10 +46,10 @@ export const routes: RouteObject[] = [
     },
     {
         path: 'login',
-        element: withSuspense(LoginPage) // Thêm Suspense cho LoginPage
+        element: withSuspense(LoginPage)
     },
     {
-        path: 'register', // Thêm route cho RegisterPage
+        path: 'register',
         element: withSuspense(RegisterPage)
     },
     {
@@ -71,10 +69,6 @@ export const routes: RouteObject[] = [
                 element: withSuspense(ProductsPage),
             },
             {
-                path: 'flash-sale',
-                element: withSuspense(FlashSalePage),
-            },
-            {
                 path: 'users',
                 element: withSuspense(UsersPage),
             },
@@ -85,11 +79,7 @@ export const routes: RouteObject[] = [
             {
                 path: 'showtimes',
                 element: withSuspense(ShowtimesPage),
-            },
-            {
-                path: 'bookings',
-                element: withSuspense(Bookings),
-            },
+            }
         ],
     },
 ]

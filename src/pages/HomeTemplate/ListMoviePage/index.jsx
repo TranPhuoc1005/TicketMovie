@@ -48,10 +48,10 @@ export default function ListMoviePage(props) {
         <section id="movies" className="py-16 px-4 sm:px-6 lg:px-8">
             <div className="max-w-7xl mx-auto">
                 <div className="text-center mb-16">
-                    <h2 className="text-4xl md:text-5xl font-bold text-white mb-4">
+                    <h2 className="text-4xl md:text-5xl font-bold text-black mb-4">
                         🎬 Phim đang chiếu
                     </h2>
-                    <p className="text-slate-300 text-lg max-w-2xl mx-auto">
+                    <p className="text-black text-lg max-w-2xl mx-auto">
                         Khám phá những bộ phim blockbuster mới nhất với chất lượng hình ảnh và âm thanh tuyệt vời
                     </p>
                 </div>
@@ -64,7 +64,7 @@ export default function ListMoviePage(props) {
                             currentPage={currentPage}
                             totalPages={totalPages}
                             onPageChange={handlePageChange}
-                            color="text-white"
+                            color="text-black"
                         />
                     </div>
                 </div>

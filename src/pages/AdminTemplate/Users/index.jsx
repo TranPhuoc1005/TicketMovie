@@ -169,8 +169,7 @@ export default function UsersPage() {
                     <h1 className="text-2xl font-bold">Quản lý người dùng</h1>
                     <button
                         onClick={handleAddUser}
-                        className="bg-blue-600 text-white px-4 py-2 rounded-lg hover:bg-blue-700 flex items-center"
-                    >
+                        className="bg-gradient-to-r from-sky-300 to-blue-300  text-white px-4 py-2 rounded-lg font-bold text-1xl transition-all duration-300 hover:scale-105 hover:shadow-2xl hover:shadow-purple-500/25 flex items-center space-x-2 cursor-pointer">
                         <PlusCircle size={20} className="mr-2" /> Thêm người dùng
                     </button>
                 </div>

@@ -38,7 +38,7 @@ export default function Sidebar(props) {
             section: "theaters",
         },
         {
-            display: "Lịch chiếu",
+            display: "Lịch chiếu & đặt vé",
             icon: (
                 <FontAwesomeIcon
                     icon={faCalendarDays}
@@ -47,25 +47,6 @@ export default function Sidebar(props) {
             ),
             to: "/admin/showtimes",
             section: "showtimes",
-        },
-        {
-            display: "Quản lý đặt vé",
-            icon: (
-                <FontAwesomeIcon
-                    icon={faTicket}
-                    className="text-white text-xl"
-                />
-            ),
-            to: "/admin/bookings",
-            section: "bookings",
-        },
-        {
-            display: "Bán chạy",
-            icon: (
-                <FontAwesomeIcon icon={faFire} className="text-white text-xl" />
-            ),
-            to: "/admin/flash-sale",
-            section: "flash-sale",
         },
         {
             display: "Người dùng",
@@ -128,10 +109,10 @@ export default function Sidebar(props) {
 
     return (
         <>
-            <aside ref={sidebarRef} className={`sidebar bg-gradient-to-br from-slate-900 via-purple-900 to-slate-900 min-h-screen fixed top-0 left-0 z-50 transition-transform duration-300 ease-in-out delay-200 ${isToggle ? 'translate-x-0' : '-translate-x-full'} lg:relative lg:translate-x-0`}>
+            <aside ref={sidebarRef} className={`sidebar bg-gradient-to-r from-sky-300 to-blue-300 min-h-screen fixed top-0 left-0 z-50 transition-transform duration-300 ease-in-out delay-200 ${isToggle ? 'translate-x-0' : '-translate-x-full'} lg:relative lg:translate-x-0`}>
                 <div className="sidebar__logo mr-[0.625em]">
                     <div className="flex items-center gap-2">
-                        <div className="bg-gradient-to-r from-purple-600 to-pink-600 p-2 rounded-xl">
+                        <div className="bg-gradient-to-r from-rose-200 to-orange-200  p-2 rounded-xl">
                             <svg
                                 className="w-6 h-6 text-white"
                                 fill="none"
@@ -152,8 +133,8 @@ export default function Sidebar(props) {
                             href="/"
                             data-discover="true"
                         >
-                            <h1 className="text-2xl font-bold bg-gradient-to-r from-purple-400 to-pink-400 bg-clip-text text-transparent">
-                                CinemaX
+                            <h1 className="text-2xl font-bold bg-gradient-to-r from-rose-200 to-orange-200 bg-clip-text text-transparent text-nowrap">
+                                THP Cinema
                             </h1>
                         </a>
                         <span onClick={onToggleSidebar} className="sidebar__close sp"><FontAwesomeIcon icon={faTimesCircle} className="text-3xl text-white" /></span>
