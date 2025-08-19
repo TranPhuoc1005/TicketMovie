@@ -25,11 +25,7 @@ export default function Movie(props) {
     const durationFilm = cinemaDetail?.heThongRapChieu?.[0]?.cumRapChieu?.[0]?.lichChieuPhim?.[0]?.thoiLuong;
     return (
         <div className="group relative bg-white rounded-2xl overflow-hidden hover-lift border border-slate-700/50 hover:border-rose-300">
-<<<<<<< HEAD
-            <div className="relative p-6 flex flex-col h-full">
-=======
             <div className="relative p-4 flex flex-col h-full">
->>>>>>> thanhlv
                 <div onClick={handleViewDetail} className="mb-6 relative cursor-pointer">
                     <div className="aspect-[3/4] bg-gradient-to-r from-sky-300 to-blue-300 rounded-xl flex items-center justify-center text-6xl group-hover:scale-105 transition-transform duration-500">
                         <img src={movie.hinhAnh} className="object-cover w-full h-full" alt={movie.tenPhim} />
