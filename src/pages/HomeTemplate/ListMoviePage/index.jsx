@@ -55,7 +55,7 @@ export default function ListMoviePage(props) {
                         Khám phá những bộ phim blockbuster mới nhất với chất lượng hình ảnh và âm thanh tuyệt vời
                     </p>
                 </div>
-                <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-8">
+                <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-5">
                     {renderMovies()}
                 </div>
                 <div className="text-center mt-12">
