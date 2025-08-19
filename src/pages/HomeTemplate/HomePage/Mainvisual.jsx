@@ -112,7 +112,7 @@ export default function Mainvisual(props) {
                             </div>
 
                             {/* Movie Title */}
-                            <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold leading-tight">
+                            <h1 className="text-4xl md:text-5xl lg:text-5xl font-bold leading-tight">
                                 <span className="bg-gradient-to-r from-rose-200 to-orange-200 to-yellow-400 bg-clip-text text-transparent">
                                     {currentMovie?.tenPhim}
                                 </span>
