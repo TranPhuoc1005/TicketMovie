@@ -8,8 +8,8 @@ import Alert from '../../components/Alert/Alert.jsx';
 
 export default function LoginPage() {
     const [values, setValues] = useState({
-        taiKhoan: '',
-        matKhau: ''
+        taiKhoan: '123',
+        matKhau: '123'
     });
     const navigate = useNavigate();
     const dispatch = useDispatch();
